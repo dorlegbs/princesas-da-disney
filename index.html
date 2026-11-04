@@ -159,7 +159,7 @@ a{color:var(--ouro2)}
 .cena{position:relative}
 .cena .palco{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4vh 4vw 3vh;gap:2.4vh}
 .gatilhos{position:relative;margin-top:-100vh;pointer-events:none}
-.gatilho{height:88vh;visibility:hidden}
+.gatilho{height:100vh;visibility:hidden}
 .gatilho:first-child{height:100vh}
 .vidro{position:relative;width:min(900px,100%);border-radius:30px;padding:20px 22px 14px;
   background:linear-gradient(160deg,#1c2058d9 0%,#11143ce6 60%,#0d0f30f0 100%);
@@ -912,18 +912,9 @@ function desenhaCeu(t){const cor=window._cor||0;if(cor<.02){cx.clearRect(0,0,inn
   cadentes=cadentes.filter(c=>(c.v-=.018)>0);for(const c of cadentes){c.x+=9;c.y+=4;const g=cx.createLinearGradient(c.x,c.y,c.x-120,c.y-54);g.addColorStop(0,'#fff');g.addColorStop(1,'#fff0');cx.globalAlpha=c.v;cx.strokeStyle=g;cx.lineWidth=1.6;cx.beginPath();cx.moveTo(c.x,c.y);cx.lineTo(c.x-120,c.y-54);cx.stroke()}
   cx.globalAlpha=1}
 
-/* ================= rolagem macia: a roda do mouse anda menos e desliza ================= */
-let alvoY=scrollY,ultRoda=0,meuT=0;
-addEventListener('wheel',e=>{if(e.ctrlKey||calmo)return;e.preventDefault();ultRoda=performance.now();
-  const d=e.deltaY*(e.deltaMode===1?16:e.deltaMode===2?innerHeight:1);
-  alvoY=Math.max(0,Math.min(document.documentElement.scrollHeight-innerHeight,alvoY+d*.9))},{passive:false});
-addEventListener('scroll',()=>{if(performance.now()-meuT>150)alvoY=scrollY},{passive:true});
-['keydown','mousedown','touchstart'].forEach(ev=>addEventListener(ev,()=>{ultRoda=0;alvoY=scrollY},{passive:true}));
-function rolaMacio(){const d=alvoY-scrollY;if(Math.abs(d)>.5&&performance.now()-ultRoda<4000){meuT=performance.now();scrollTo(0,scrollY+d*.16)}}
-
 /* ================= laço principal ================= */
 const raiz=document.documentElement;const tarefas=[];
-let qd=0;function laco(t){rolaMacio();if((qd++&1)===0)desenhaCeu(t);desenhaRastro();for(const f of tarefas)f(t);requestAnimationFrame(laco)}
+let qd=0;function laco(t){if((qd++&1)===0)desenhaCeu(t);desenhaRastro();for(const f of tarefas)f(t);requestAnimationFrame(laco)}
 requestAnimationFrame(laco);
 
 /* rolagem: progresso, a cor que volta, títulos em movimento, cartões que inclinam */
