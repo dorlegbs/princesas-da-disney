@@ -159,7 +159,7 @@ a{color:var(--ouro2)}
 .cena{position:relative}
 .cena .palco{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4vh 4vw 3vh;gap:2.4vh}
 .gatilhos{position:relative;margin-top:-100vh;pointer-events:none}
-.gatilho{height:105vh;visibility:hidden}
+.gatilho{height:88vh;visibility:hidden}
 .gatilho:first-child{height:100vh}
 .vidro{position:relative;width:min(900px,100%);border-radius:30px;padding:20px 22px 14px;
   background:linear-gradient(160deg,#1c2058d9 0%,#11143ce6 60%,#0d0f30f0 100%);
@@ -916,10 +916,10 @@ function desenhaCeu(t){const cor=window._cor||0;if(cor<.02){cx.clearRect(0,0,inn
 let alvoY=scrollY,ultRoda=0,meuT=0;
 addEventListener('wheel',e=>{if(e.ctrlKey||calmo)return;e.preventDefault();ultRoda=performance.now();
   const d=e.deltaY*(e.deltaMode===1?16:e.deltaMode===2?innerHeight:1);
-  alvoY=Math.max(0,Math.min(document.documentElement.scrollHeight-innerHeight,alvoY+d*.5))},{passive:false});
+  alvoY=Math.max(0,Math.min(document.documentElement.scrollHeight-innerHeight,alvoY+d*.9))},{passive:false});
 addEventListener('scroll',()=>{if(performance.now()-meuT>150)alvoY=scrollY},{passive:true});
 ['keydown','mousedown','touchstart'].forEach(ev=>addEventListener(ev,()=>{ultRoda=0;alvoY=scrollY},{passive:true}));
-function rolaMacio(){const d=alvoY-scrollY;if(Math.abs(d)>.5&&performance.now()-ultRoda<4000){meuT=performance.now();scrollTo(0,scrollY+d*.085)}}
+function rolaMacio(){const d=alvoY-scrollY;if(Math.abs(d)>.5&&performance.now()-ultRoda<4000){meuT=performance.now();scrollTo(0,scrollY+d*.16)}}
 
 /* ================= laço principal ================= */
 const raiz=document.documentElement;const tarefas=[];
@@ -1308,31 +1308,17 @@ preparaFinal();aoRolar();
 <button id="som" aria-pressed="false" aria-label="Ligar a música"><span class="ic"><i></i><i></i><i></i><i></i></span><span class="tx">música</span></button>
 <script>
 (function(){
-  const bt=document.getElementById('som');let ctx=null,mestre=null,ligada=false,prox=0,passo=0,timer=null;
-  // C - Am - F - G, em notas MIDI
-  const acordes=[[60,64,67],[57,60,64],[53,57,60],[55,59,62]];
-  const melodia=[[76,79,84,79],[76,72,76,81],[77,81,84,81],[74,79,83,79]];
-  const hz=m=>440*Math.pow(2,(m-69)/12);
-  function eco(c){const n=c.sampleRate*3.2,b=c.createBuffer(2,n,c.sampleRate);for(let ch=0;ch<2;ch++){const d=b.getChannelData(ch);for(let i=0;i<n;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/n,2.6)}const v=c.createConvolver();v.buffer=b;return v}
-  function prepara(){ctx=new (window.AudioContext||window.webkitAudioContext)();mestre=ctx.createGain();mestre.gain.value=0;
-    const sala=eco(ctx),seco=ctx.createGain(),molhado=ctx.createGain();seco.gain.value=.55;molhado.gain.value=.7;
-    mestre.connect(seco).connect(ctx.destination);mestre.connect(sala).connect(molhado).connect(ctx.destination)}
-  function sino(f,t,vol){const o=ctx.createOscillator(),o2=ctx.createOscillator(),g=ctx.createGain();o.type='sine';o2.type='sine';o.frequency.value=f;o2.frequency.value=f*2.01;
-    const g2=ctx.createGain();g2.gain.value=.18;o2.connect(g2).connect(g);o.connect(g);g.connect(mestre);
-    g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+.01);g.gain.exponentialRampToValueAtTime(.0001,t+2.4);o.start(t);o2.start(t);o.stop(t+2.5);o2.stop(t+2.5)}
-  function corda(f,t,dur){const o=ctx.createOscillator(),o2=ctx.createOscillator(),fl=ctx.createBiquadFilter(),g=ctx.createGain();o.type='sawtooth';o2.type='sawtooth';o.frequency.value=f;o2.frequency.value=f*1.004;
-    fl.type='lowpass';fl.frequency.value=700;o.connect(fl);o2.connect(fl);fl.connect(g).connect(mestre);
-    g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.022,t+1.6);g.gain.setValueAtTime(.022,t+dur-1.6);g.gain.linearRampToValueAtTime(0,t+dur);o.start(t);o2.start(t);o.stop(t+dur+.1);o2.stop(t+dur+.1)}
-  const BAT=.75; // segundos por nota (bem calmo)
-  function agenda(){while(prox<ctx.currentTime+1.2){const c=Math.floor(passo/4)%4,n=passo%4;
-      if(n===0)acordes[c].forEach(m=>corda(hz(m-12),prox,BAT*4+.4));
-      if(!(passo%16===15))sino(hz(melodia[c][n]),prox,n===0?.11:.07);
-      prox+=BAT;passo++}}
-  function liga(){if(!ctx)prepara();ctx.resume();prox=Math.max(prox,ctx.currentTime+.1);agenda();timer=setInterval(agenda,250);
-    mestre.gain.cancelScheduledValues(ctx.currentTime);mestre.gain.linearRampToValueAtTime(.9,ctx.currentTime+2)}
-  function desliga(){clearInterval(timer);mestre.gain.cancelScheduledValues(ctx.currentTime);mestre.gain.setValueAtTime(mestre.gain.value,ctx.currentTime);mestre.gain.linearRampToValueAtTime(0,ctx.currentTime+1.2);setTimeout(()=>{if(!ligada)ctx.suspend()},1400)}
+  const bt=document.getElementById('som'),VOL=.45,CRUZA=5;
+  const faixas=[new Audio('musica.mp3'),new Audio('musica.mp3')];faixas.forEach(a=>{a.preload='auto';a.volume=0});
+  let atual=0,ligada=false,laco=null,fade=null;
+  function rampa(a,de,ate,ms,fim){const t0=performance.now();(function f(){const k=Math.min(1,(performance.now()-t0)/ms);a.volume=Math.max(0,Math.min(1,de+(ate-de)*k));if(k<1)requestAnimationFrame(f);else if(fim)fim()})()}
+  function vigia(){const a=faixas[atual];if(!a.duration||!ligada)return;
+    if(a.duration-a.currentTime<=CRUZA&&!a._cruzando){a._cruzando=true;const b=faixas[1-atual];b.currentTime=0;b.volume=0;b._cruzando=false;b.play();
+      rampa(b,0,VOL,CRUZA*1000);rampa(a,a.volume,0,CRUZA*1000,()=>{a.pause();a._cruzando=false});atual=1-atual}}
+  function liga(){const a=faixas[atual];a.play().then(()=>{rampa(a,a.volume,VOL,2000)}).catch(()=>{});laco=setInterval(vigia,200)}
+  function desliga(){clearInterval(laco);faixas.forEach(a=>rampa(a,a.volume,0,1200,()=>a.pause()))}
   bt.addEventListener('click',()=>{ligada=!ligada;bt.classList.toggle('on',ligada);bt.setAttribute('aria-pressed',ligada);bt.setAttribute('aria-label',ligada?'Desligar a música':'Ligar a música');ligada?liga():desliga()});
-  document.addEventListener('visibilitychange',()=>{if(!ctx)return;if(document.hidden)ctx.suspend();else if(ligada)ctx.resume()});
+  document.addEventListener('visibilitychange',()=>{if(!ligada)return;if(document.hidden)faixas.forEach(a=>a.pause());else faixas[atual].play().catch(()=>{})});
 })();
 </script>
 </body>
