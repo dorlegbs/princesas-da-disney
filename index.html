@@ -57,8 +57,9 @@ a{color:var(--ouro2)}
 .palavra.acesa{opacity:1;filter:none}
 
 /* ===== 1. ABERTURA (preto e branco) ===== */
-#abertura{position:relative;background:#0b0b0b}
-#abertura .palco{background:radial-gradient(ellipse at 40% 50%,#262626 0%,#0b0b0b 70%)}
+#abertura{position:relative;background:linear-gradient(#0b0b0b 0,#0b0b0b calc(100% - 100vh),transparent 100%)}
+#abertura:after{content:"";position:absolute;left:0;right:0;bottom:-30vh;height:60vh;pointer-events:none;background:linear-gradient(transparent,#0b0b0b66 50%,transparent)}
+#abertura .palco{background:radial-gradient(ellipse at 40% 50%,#262626 0%,#0b0b0b 70%);-webkit-mask-image:linear-gradient(#000 0,#000 62%,transparent 100%);mask-image:linear-gradient(#000 0,#000 62%,transparent 100%)}
 .giro{position:absolute;width:70vmax;height:70vmax;left:0;top:0;margin:-35vmax 0 0 -35vmax;border-radius:50%;pointer-events:none;will-change:transform}
 .giro.g1{background:radial-gradient(closest-side,#ffffff26,#ffffff0a 45%,transparent)}
 .giro.g2{width:44vmax;height:44vmax;margin:-22vmax 0 0 -22vmax;background:radial-gradient(closest-side,#f3ead61c,transparent)}
@@ -320,20 +321,20 @@ svg text{font-family:var(--corpo)}
 
 /* ===== 7. FINAL ===== */
 #final{position:relative;height:340vh}
-#final .palco{position:sticky;top:0;height:100vh;overflow:hidden;-webkit-mask-image:linear-gradient(transparent 0,#000 22%,#000 100%);mask-image:linear-gradient(transparent 0,#000 22%,#000 100%)}
+#final .palco{position:sticky;top:0;height:100vh;overflow:hidden;-webkit-mask-image:linear-gradient(transparent 0,#000 22%,#000 93%,transparent 100%);mask-image:linear-gradient(transparent 0,#000 22%,#000 93%,transparent 100%)}
 #lanternas{position:absolute;inset:0;overflow:hidden}
 #tela-final{position:absolute;inset:0;width:100%;height:100%}
 #roda{position:absolute;left:50%;top:40%;width:0;height:0}
 .foto-roda{position:absolute;left:0;top:0;width:clamp(48px,9vmin,92px);aspect-ratio:1;border-radius:50%;overflow:hidden;opacity:0;box-shadow:0 0 0 2px #e8c36a,0 0 24px #e8c36a88}
 .foto-roda img{width:100%;height:100%;object-fit:cover}
-.texto-final{position:absolute;left:0;right:0;bottom:5vh;text-align:center;opacity:0;transform:translateY(20px);filter:blur(6px);transition:opacity 1.8s ease,transform 2s cubic-bezier(.16,.84,.3,1),filter 1.8s;padding:0 16px}
+.texto-final{position:absolute;left:0;right:0;bottom:8vh;text-align:center;opacity:0;transform:translateY(20px);filter:blur(6px);transition:opacity 1.8s ease,transform 2s cubic-bezier(.16,.84,.3,1),filter 1.8s;padding:0 16px}
 .texto-final.on{filter:none}
 .texto-final.on{opacity:1;transform:none}
 .texto-final h2{font-family:var(--titulo);font-size:clamp(26px,4.4vw,56px);font-weight:400;text-shadow:0 0 30px #e8c36a55}
 .texto-final p{color:var(--suave);margin:8px 0 20px;font-family:var(--serif);font-style:italic;font-size:20px}
 .de-novo{font-family:var(--serif);font-style:italic;font-size:20px;color:var(--ouro2);text-decoration:none;letter-spacing:.03em;border-bottom:1px solid #e8c36a55;padding-bottom:3px}
 
-footer{position:relative;padding:12vh 7vw 8vh;color:var(--suave);font-size:15px;text-align:center;background:linear-gradient(transparent,#05040c 30%)}
+footer{position:relative;margin-top:-30vh;padding:42vh 7vw 8vh;color:var(--suave);font-size:15px;text-align:center;background:linear-gradient(transparent 0,#07061a99 40%,#05040c 75%)}
 footer h3{font-family:var(--serif);font-style:italic;font-size:30px;margin-bottom:24px}
 .fonte{max-width:780px;margin:0 auto 18px;line-height:1.5}
 .fonte b{color:#fff;font-weight:600}
