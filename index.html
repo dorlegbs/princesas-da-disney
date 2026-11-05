@@ -541,13 +541,19 @@ footer .volta .de-novo:hover{box-shadow:0 0 28px #e8c36a66;translate:0 -2px}
           <g transform="translate(500 477) rotate(-12)">
             <ellipse id="sombraChave" cx="104" cy="36" rx="30" ry="7" fill="#000" opacity=".28"/>
             <g mask="url(#mEntra)"><g id="chaveMove">
-              <rect x="-70" y="-5.5" width="160" height="11" rx="4" fill="url(#gHaste)" stroke="#4a300a" stroke-width=".8"/>
-              <rect x="24" y="-8.5" width="6" height="17" rx="2" fill="url(#gHaste)" stroke="#4a300a" stroke-width=".8"/>
-              <rect x="40" y="-10" width="9" height="20" rx="3" fill="url(#gHaste)" stroke="#4a300a" stroke-width=".8"/>
-              <ellipse cx="64" cy="0" rx="5" ry="12.5" fill="url(#gHaste)" stroke="#4a300a" stroke-width=".8"/>
-              <rect x="-70" y="-4" width="160" height="2" fill="#fff8dc" opacity=".55"/>
-              <g id="arcoChave" transform="translate(98 0)">
-                <g transform="scale(.6 1)">
+              <path d="M-64 5 H-36 V27 Q-36 29 -38 29 H-42 V21 H-48 V29 H-54 V23 H-58 V29 H-62 Q-64 29 -64 27 Z" fill="url(#gHaste)" stroke="#4a300a" stroke-width="1"/>
+              <path d="M-62 8 H-38" stroke="#fff8dc" stroke-width="1.6" opacity=".6"/>
+              <path d="M-64 18 H-36" stroke="#5e3c0e" stroke-width="1" opacity=".5"/>
+              <rect x="-72" y="-7" width="186" height="14" rx="7" fill="url(#gHaste)" stroke="#4a300a" stroke-width=".9"/>
+              <rect x="-70" y="-5" width="182" height="2.6" rx="1.3" fill="#fff8dc" opacity=".6"/>
+              <rect x="-70" y="3.2" width="182" height="1.6" rx=".8" fill="#5e3c0e" opacity=".45"/>
+              <ellipse cx="-72" cy="0" rx="3" ry="7" fill="#c9973e" stroke="#4a300a" stroke-width=".9"/>
+              <rect x="30" y="-10" width="7" height="20" rx="3" fill="url(#gHaste)" stroke="#4a300a" stroke-width=".9"/>
+              <rect x="46" y="-12" width="10" height="24" rx="4" fill="url(#gHaste)" stroke="#4a300a" stroke-width=".9"/>
+              <ellipse cx="74" cy="0" rx="6" ry="15" fill="url(#gHaste)" stroke="#4a300a" stroke-width=".9"/>
+              <ellipse cx="72.5" cy="-4" rx="1.6" ry="7" fill="#fff8dc" opacity=".55"/>
+              <g id="arcoChave" transform="translate(122 0)">
+                <g transform="scale(.92 1)">
                   <g id="espChave" transform="translate(7 3)"><use href="#formaArco" fill="#5a3a0d"/></g>
                   <use href="#formaArco" fill="url(#gArco)" stroke="#4a300a" stroke-width="1.4"/>
                   <g fill="#0a0812"><circle cx="0" cy="-27" r="6"/><circle cx="0" cy="27" r="6"/><circle cx="27" cy="0" r="6"/></g>
@@ -1018,9 +1024,9 @@ let pSuave=0;tarefas.push(t=>{const sec=$('#portal');if(!visivel(sec))return;pSu
   const chega=eio(faixa(p,.32,.44)),entra=eio(faixa(p,.44,.5)),gira=eio(faixa(p,.5,.58)),some=faixa(p,.58,.64);
   const kg=$('#chaveG');kg.setAttribute('transform',m);kg.setAttribute('opacity',(lim(faixa(p,.3,.36))*(1-some)).toFixed(3));
   $('#chaveMove').setAttribute('transform',`translate(${(1-chega)*260+(1-entra)*46} ${(1-chega)*-40})`);
-  $('#arcoChave').setAttribute('transform',`translate(98 0) scale(1 ${(1-.84*gira).toFixed(3)})`);
+  $('#arcoChave').setAttribute('transform',`translate(122 0) scale(${(1-.25*gira).toFixed(3)} ${(1-.8*gira).toFixed(3)})`);
   $('#espChave').setAttribute('transform',`translate(${(7*(1-gira)).toFixed(2)} ${(3+5*gira).toFixed(2)})`);
-  const leg=$('#leg-portal');const txt=p<.06?'siga a estrela':p<.24?'':p<.34?'do outro lado da fechadura, um castelo espera':p<.5?'uma chave dourada se aproxima…':'';
+  const leg=$('#leg-portal');const txt=p<.06?'siga a estrela':p<.24?'':p<.34?'do outro lado da fechadura, um castelo espera':p<.5?'Está preparado?':'';
   if(leg._t!==txt){leg._t=txt;leg.style.opacity=0;setTimeout(()=>{leg.textContent=txt;leg.style.opacity=txt?1:0},250)}
   // arco mágico e título
   const ar=eio(faixa(p,.7,.97));const arco=$('#arco-magico');arco.style.strokeDashoffset=arco._L*(1-ar);
