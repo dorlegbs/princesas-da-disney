@@ -58,7 +58,7 @@ a{color:var(--ouro2)}
 #luz{position:fixed;left:0;top:0;z-index:91;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;pointer-events:none;background:#fff;
   box-shadow:0 0 6px 2px #fff,0 0 18px 6px #f8e7b0,0 0 40px 14px #e8c36a88,0 0 80px 30px #e8c36a33;transition:width .25s,height .25s,margin .25s,opacity .3s;opacity:0}
 #luz.grande{width:22px;height:22px;margin:-11px 0 0 -11px;background:#fff8}
-#progresso{position:fixed;top:0;left:0;height:2px;width:0;z-index:70;background:var(--dourado);box-shadow:0 0 10px #e8c36a}
+#progresso{position:fixed;top:0;left:0;height:2px;width:100%;transform:scaleX(0);transform-origin:0 0;will-change:transform;z-index:70;background:var(--dourado);box-shadow:0 0 10px #e8c36a}
 #dica{position:fixed;z-index:95;pointer-events:none;background:#0e1030f0;color:#fff;font-size:14px;padding:9px 14px;border-radius:14px;box-shadow:0 10px 30px #000a;opacity:0;transition:opacity .15s;max-width:260px;border:1px solid #e8c36a66;backdrop-filter:blur(8px)}
 #dica b{color:var(--ouro2)}
 
@@ -927,7 +927,8 @@ function eixoX(g,esc,y,ticks,rot=v=>fmt(v)){const e=S('g',{class:'eixo'},g);S('l
 function eixoY(g,esc,x,ticks,rot=v=>fmt(v),largura=0){const e=S('g',{class:'eixo'},g);ticks.forEach(t=>{if(largura)S('line',{x1:x,x2:x+largura,y1:esc(t),y2:esc(t),'stroke-dasharray':'2 5'},e);S('text',{x:x-8,y:esc(t)+4,'text-anchor':'end'},e).textContent=rot(t)});return e}
 function aoAparecer(el,fn,limiar=.3){const o=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){fn(e.target);o.unobserve(e.target)}}),{threshold:limiar});o.observe(el)}
 function progresso(el){const r=el.getBoundingClientRect();const total=el.offsetHeight-innerHeight;return lim(-r.top/total)}
-const visivel=el=>{const r=el.getBoundingClientRect();return r.bottom>0&&r.top<innerHeight};
+const _vis=new WeakMap(),_ioVis=new IntersectionObserver(es=>es.forEach(e=>_vis.set(e.target,e.isIntersecting)));
+const visivel=el=>{if(!_vis.has(el)){const r=el.getBoundingClientRect();_vis.set(el,r.bottom>0&&r.top<innerHeight);_ioVis.observe(el)}return _vis.get(el)};
 
 /* ================= cursor de luz e rastro de brilho ================= */
 const luz=$('#luz'),cr=$('#rastro'),rx=cr.getContext('2d');let fag=[],mx=-100,my=-100,lx=-100,ly=-100;
@@ -952,7 +953,7 @@ function preparaCeu(){const d=1;cc.width=innerWidth*d;cc.height=innerHeight*d;cx
 preparaCeu();addEventListener('resize',preparaCeu);
 function desenhaCeu(t){const cor=window._cor||0;if(cor<.02){cx.clearRect(0,0,innerWidth,innerHeight);return}
   cx.clearRect(0,0,innerWidth,innerHeight);const H=innerHeight*3;
-  for(const e of estrelas){let y=(e.y-scrollY*e.z*.18)%H;if(y<0)y+=H;if(y>innerHeight)continue;const b=.35+.65*Math.abs(Math.sin(t/1000*e.v+e.f));
+  for(const e of estrelas){let y=(e.y-scrollY*e.z*.18)%H;if(y<0)y+=H;if(y>innerHeight||(window._portalPreso&&y>innerHeight*.22&&y<innerHeight*.8))continue;const b=.35+.65*Math.abs(Math.sin(t/1000*e.v+e.f));
     cx.globalAlpha=b*e.z;cx.fillStyle=e.o?'#f8e7b0':'#fff';const r=e.z*1.3;if(e.o&&e.z>.6)estrela4(cx,e.x,y,r*3*b+1);else{cx.beginPath();cx.arc(e.x,y,r,0,6.283);cx.fill()}}
   if(!calmo&&Math.random()<.004)cadentes.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight*.5,v:1});
   cadentes=cadentes.filter(c=>(c.v-=.018)>0);for(const c of cadentes){c.x+=9;c.y+=4;const g=cx.createLinearGradient(c.x,c.y,c.x-120,c.y-54);g.addColorStop(0,'#fff');g.addColorStop(1,'#fff0');cx.globalAlpha=c.v;cx.strokeStyle=g;cx.lineWidth=1.6;cx.beginPath();cx.moveTo(c.x,c.y);cx.lineTo(c.x-120,c.y-54);cx.stroke()}
@@ -960,12 +961,12 @@ function desenhaCeu(t){const cor=window._cor||0;if(cor<.02){cx.clearRect(0,0,inn
 
 /* ================= laço principal ================= */
 const raiz=document.documentElement;const tarefas=[];
-let qd=0;function laco(t){if((qd++&1)===0)desenhaCeu(t);desenhaRastro();for(const f of tarefas)f(t);requestAnimationFrame(laco)}
+let qd=0;function laco(t){if(aoRolar._p){aoRolar._p=0;aoRolar()}if((qd++&1)===0)desenhaCeu(t);desenhaRastro();for(const f of tarefas)f(t);requestAnimationFrame(laco)}
 requestAnimationFrame(laco);
 
 /* rolagem: progresso, a cor que volta, títulos em movimento, cartões que inclinam */
 function aoRolar(){
-  const y=scrollY,h=document.body.scrollHeight-innerHeight;$('#progresso').style.width=(y/h*100)+'%';
+  const y=scrollY,h=document.body.scrollHeight-innerHeight;$('#progresso').style.transform=`scaleX(${(y/h).toFixed(4)})`;
   const mot=$('#motivacao'),ini=mot.offsetTop-innerHeight*.9,fim=mot.offsetTop+mot.offsetHeight*.45;
   const cor=lim((y-ini)/(fim-ini));if(cor.toFixed(3)!==aoRolar._c){aoRolar._c=cor.toFixed(3);raiz.style.setProperty('--cor',aoRolar._c);window._cor=cor;
   document.body.style.background=`rgb(${11-4*cor|0},${11-3*cor|0},${11+16*cor|0})`;mot.style.filter=cor>.995?'none':`grayscale(${1-cor})`}
@@ -980,7 +981,7 @@ function aoRolar(){
     const ee=eio(e);v.style.setProperty('--rx',((1-ee)*12).toFixed(2)+'deg');v.style.setProperty('--ty',((1-ee)*60).toFixed(1)+'px');v.style.setProperty('--op',(ee).toFixed(3))});
   portal();baileRolagem();fioRolagem();finalRolagem();
 }
-addEventListener('scroll',()=>{if(!aoRolar._p){aoRolar._p=1;requestAnimationFrame(()=>{aoRolar._p=0;aoRolar()})}},{passive:true});
+addEventListener('scroll',()=>{aoRolar._p=1},{passive:true});
 addEventListener('resize',()=>aoRolar());
 $$('.sobe').forEach(el=>aoAparecer(el,e=>e.classList.add('on'),.2));
 $$('footer h3,footer .fonte,footer .creditos,footer .volta').forEach((el,k)=>{el.style.setProperty('--atraso',(k*.12)+'s');aoAparecer(el,e=>{e.classList.add('on');if(e.tagName==='H3'&&!calmo){const r=e.getBoundingClientRect();brilhos(r.left+r.width/2,r.top+r.height/2,30,1.1)}},.15)});
@@ -1035,14 +1036,14 @@ function desenhaCeuPortal(zoom,t){const W=innerWidth,H=innerHeight;cp.clearRect(
   for(const e of estP){const rr=e.r*R*(1+zoom*zoom*6);if(rr>R*1.4)continue;const x=W/2+Math.cos(e.a)*rr,y=H/2+Math.sin(e.a)*rr;const b=.5+.5*Math.sin(t/700+e.f);
     cp.globalAlpha=b*(zoom>.05?.45:1);cp.fillStyle='#fff';cp.beginPath();if(zoom>.05){cp.strokeStyle='#fff8e6';cp.lineWidth=e.s*.5;cp.moveTo(x,y);const k=1-1/(1+zoom*3);cp.lineTo(W/2+(x-W/2)*(1-k*.25),H/2+(y-H/2)*(1-k*.25));cp.stroke()}else{cp.arc(x,y,e.s*.8,0,6.283);cp.fill()}}cp.globalAlpha=1}
 let pPortal=0;
-function portal(){const sec=$('#portal');pPortal=progresso(sec)}
+function portal(){const sec=$('#portal'),r=sec.getBoundingClientRect();pPortal=lim(-r.top/(r.height-innerHeight));window._portalPreso=r.top<=0&&r.bottom>=innerHeight}
 let pSuave=0;tarefas.push(t=>{const sec=$('#portal');if(!visivel(sec))return;pSuave+=(pPortal-pSuave)*.14;if(Math.abs(pPortal-pSuave)<.0002)pSuave=pPortal;const p=pSuave;
-  const z=faixa(p,0,.2);if(p<.26){desenhaCeuPortal(z,t);portal._ceu=1}else if(portal._ceu){portal._ceu=0;cp.clearRect(0,0,innerWidth,innerHeight)}
-  const ep=$('#estrelas-portal');ep.style.opacity=1-faixa(p,.19,.24);ep.style.display=p>.25?'none':'block';
+  const z=faixa(p,0,.2);if(p<.2){desenhaCeuPortal(z,t);portal._ceu=1}else if(portal._ceu){portal._ceu=0;cp.clearRect(0,0,innerWidth,innerHeight)}
+  const ep=$('#estrelas-portal');ep.style.opacity=1-faixa(p,.19,.24);{const v=p>.25?'hidden':'visible';if(ep._v!==v){ep._v=v;ep.style.visibility=v}}
   const eg=$('#estrela-guia');eg.style.transform=`scale(${(1+z*z*7)*(1+.08*Math.sin(t/700))}) rotate(${t/90%360}deg)`;eg.style.opacity=1-faixa(p,.14,.2);
   $('#clarao').style.opacity=eio(faixa(p,.08,.2))*(1-eio(faixa(p,.21,.31)));
   // fechadura
-  const veu=$('#veu');{const v=p<.2||p>.79?'hidden':'visible';if(veu._v!==v){veu._v=v;veu.style.visibility=v}}veu.style.opacity=p<.2?0:1;
+  const veu=$('#veu');{const v=p<.13||p>.79?'hidden':'visible';if(veu._v!==v){veu._v=v;veu.style.visibility=v;veu.style.opacity=v==='visible'?1:0}}
   const abre=eio(faixa(p,.6,.8));const s=1.3+abre*abre*100;
   const m=`translate(500 ${500-abre*23}) scale(${s}) translate(-500 -500)`;$('#fechadura-m').setAttribute('transform',m);$('#espelho').setAttribute('transform',m);
   $('#espelho').style.opacity=1-faixa(p,.6,.67);$('#buraco').setAttribute('opacity',(eio(faixa(p,.33,.42))*(1-eio(faixa(p,.58,.66)))).toFixed(3));
@@ -1051,7 +1052,7 @@ let pSuave=0;tarefas.push(t=>{const sec=$('#portal');if(!visivel(sec))return;pSu
   // chave chega, entra e gira
   const W=innerWidth,H=innerHeight;
   const chega=eio(faixa(p,.32,.44)),entra=eio(faixa(p,.44,.5)),gira=eio(faixa(p,.5,.58)),some=faixa(p,.58,.64);
-  const kg=$('#chaveG');kg.setAttribute('transform',m);kg.setAttribute('opacity',(lim(faixa(p,.3,.36))*(1-some)).toFixed(3));
+  const kg=$('#chaveG');kg.setAttribute('transform',m);kg.setAttribute('opacity',Math.max(some<1?.004:0,lim(faixa(p,.3,.36))*(1-some)).toFixed(3));
   $('#chaveMove').setAttribute('transform',`translate(${(1-chega)*260+(1-entra)*46} ${(1-chega)*-40})`);
   const ang=gira*1.3,ca=Math.cos(ang),sa=Math.sin(ang),ky=(.84*ca).toFixed(3);$('#faceChave').setAttribute('transform',`scale(.84 ${ky})`);$$('.bordaChave').forEach((b,k)=>b.setAttribute('transform',`translate(${(1*(10-k)/10).toFixed(2)} ${((10-k)/10*(2.5+6.5*sa)).toFixed(2)}) scale(.84 ${ky})`));$('#sombraFace').setAttribute('opacity',(.22*sa).toFixed(3));
   
