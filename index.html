@@ -138,9 +138,6 @@ a{color:var(--ouro2)}
 @keyframes raio{50%{opacity:.25;transform:scaleX(.7)}}
 #estrela-guia:after{animation-name:raio2}@keyframes raio2{0%,100%{transform:rotate(90deg)}50%{opacity:.2;transform:rotate(90deg) scaleX(.6)}}
 #clarao{background:radial-gradient(circle at 50% 50%,#fff 0%,#fff6d6 22%,#f3d58f 45%,#7a5a2a 75%,#05040c 100%);opacity:0}
-#chave{position:absolute;left:0;top:0;width:min(30vh,40vw);aspect-ratio:200/270;transform-origin:50% 74%;opacity:0;transform-style:preserve-3d;will-change:transform}
-#chave .cam{position:absolute;inset:0;width:100%;height:100%;overflow:visible;clip-path:inset(-20% -20% var(--corte,2%) -20%)}
-#chave .aura-chave{position:absolute;left:-30%;top:-20%;width:160%;height:110%;border-radius:50%;background:radial-gradient(closest-side,#e8c36a55,#e8c36a18 55%,transparent);transform:translateZ(-30px)}
 .legenda-portal{position:absolute;left:0;right:0;bottom:8vh;text-align:center;font-family:var(--serif);font-style:italic;font-size:clamp(20px,2.4vw,28px);color:#f8e7b0;opacity:0;transition:opacity .6s;text-shadow:0 0 20px #000}
 
 /* ===== capítulos (títulos em movimento) ===== */
@@ -519,7 +516,7 @@ footer h3.on{animation:reluz 6s linear infinite,brilhaTitulo 3.5s ease-in-out 1.
     <div class="camada" id="veu">
       <svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
         <defs><mask id="mascara"><rect x="-2000" y="-2000" width="5000" height="5000" fill="#fff"/>
-          <g id="fechadura-m"><circle cx="500" cy="468" r="44" fill="#000"/><path d="M478 495 L462 590 Q500 600 538 590 L522 495 Z" fill="#000"/></g></mask></defs>
+          <g id="fechadura-m"><g transform="translate(500 492) scale(.62) translate(-500 -492)"><circle cx="500" cy="468" r="44" fill="#000"/><path d="M478 495 L462 590 Q500 600 538 590 L522 495 Z" fill="#000"/></g></g></mask></defs>
         <rect x="-2000" y="-2000" width="5000" height="5000" fill="#07060f" mask="url(#mascara)"/>
 <g mask="url(#mascara)"><g id="espelho" transform="translate(500 500) scale(1.3) translate(-500 -500)">
           <defs>
@@ -534,41 +531,39 @@ footer h3.on{animation:reluz 6s linear infinite,brilhaTitulo 3.5s ease-in-out 1.
           <path d="M444 470 C 410 452, 380 470, 388 498 C 394 520, 420 516, 416 498 M452 585 C 420 600, 410 640, 436 648 C 456 654, 462 632, 446 628 M474 410 C 456 382, 470 358, 492 364 C 506 370, 502 388, 488 384 M444 530 C 426 534, 418 552, 430 562 M 556 470 C 590 452 620 470 612 498 C 606 520 580 516 584 498 M 548 585 C 580 600 590 640 564 648 C 544 654 538 632 554 628 M 526 410 C 544 382 530 358 508 364 C 494 370 498 388 512 384 M 556 530 C 574 534 582 552 570 562" fill="none" stroke="#fff3c4" stroke-width="1.4" stroke-linecap="round" opacity=".6" transform="translate(-1 -1)"/>
           <g fill="url(#gEsp)" stroke="#4a300a" stroke-width="2"><circle cx="500" cy="372" r="9"/><circle cx="500" cy="652" r="8"/><path d="M492 640 L500 676 L508 640 Z"/></g>
           <path d="M500 392 C 534 404, 560 432, 564 472 C 568 528, 550 580, 500 632 C 450 580, 432 528, 436 472 C 440 432, 466 404, 500 392 Z" fill="url(#gEspLuz)"/>
-          <path d="M478 495 L462 590 Q500 600 538 590 L522 495 A44 44 0 1 0 478 495 Z" fill="none" stroke="#3a2508" stroke-width="5"/>
+          <path transform="translate(500 492) scale(.62) translate(-500 -492)" d="M478 495 L462 590 Q500 600 538 590 L522 495 A44 44 0 1 0 478 495 Z" fill="none" stroke="#3a2508" stroke-width="6"/><path transform="translate(500 492) scale(.62) translate(-500 -492)" d="M478 495 L462 590 Q500 600 538 590 L522 495 A44 44 0 1 0 478 495 Z" fill="none" stroke="#fff3c4" stroke-width="2" opacity=".5" transform-origin="500 492"/>
         </g></g>
-        <defs><filter id="brilhoF2"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
-      </svg>
-    </div>
-    <div id="chave" aria-hidden="true">
-      <div class="aura-chave"></div>
-      <svg width="0" height="0" style="position:absolute"><defs><symbol id="formaChave" viewBox="0 0 200 270">
-        <path d="M86 16 L92 2 L100 12 L108 2 L114 16 Z"/>
-        <circle cx="100" cy="50" r="34"/><circle cx="62" cy="88" r="34"/><circle cx="138" cy="88" r="34"/><circle cx="100" cy="122" r="30"/>
-        <circle cx="100" cy="88" r="44"/>
-        <path d="M80 146 H120 L124 166 H76 Z"/>
-        <rect x="74" y="166" width="52" height="14" rx="7"/><rect x="86" y="178" width="28" height="86" rx="4"/>
-        <rect x="78" y="200" width="44" height="10" rx="5"/><rect x="80" y="226" width="40" height="9" rx="4.5"/>
-        <g fill="#0a0812"><circle cx="100" cy="44" r="11"/><circle cx="56" cy="88" r="11"/><circle cx="144" cy="88" r="11"/><circle cx="100" cy="128" r="9"/></g>
-      </symbol></defs></svg>
-      <svg class="cam" style="transform:translateZ(-15.0px)" viewBox="0 0 200 270"><use href="#formaChave" fill="#563c11"/></svg><svg class="cam" style="transform:translateZ(-13.5px)" viewBox="0 0 200 270"><use href="#formaChave" fill="#5e4213"/></svg><svg class="cam" style="transform:translateZ(-12.0px)" viewBox="0 0 200 270"><use href="#formaChave" fill="#674915"/></svg><svg class="cam" style="transform:translateZ(-10.5px)" viewBox="0 0 200 270"><use href="#formaChave" fill="#715118"/></svg><svg class="cam" style="transform:translateZ(-9.0px)" viewBox="0 0 200 270"><use href="#formaChave" fill="#7d5a1c"/></svg><svg class="cam" style="transform:translateZ(-7.5px)" viewBox="0 0 200 270"><use href="#formaChave" fill="#8a6420"/></svg><svg class="cam" style="transform:translateZ(-6.0px)" viewBox="0 0 200 270"><use href="#formaChave" fill="#987022"/></svg><svg class="cam" style="transform:translateZ(-4.5px)" viewBox="0 0 200 270"><use href="#formaChave" fill="#a87a26"/></svg><svg class="cam" style="transform:translateZ(-3.0px)" viewBox="0 0 200 270"><use href="#formaChave" fill="#b8892e"/></svg><svg class="cam" style="transform:translateZ(-1.5px)" viewBox="0 0 200 270"><use href="#formaChave" fill="#c99a3c"/></svg>
-      <svg class="cam frente" viewBox="0 0 200 270">
-        <defs>
-          <linearGradient id="gChave" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff6d0"/><stop offset=".35" stop-color="#f1cf7a"/><stop offset=".7" stop-color="#c99a3c"/><stop offset="1" stop-color="#8a6420"/></linearGradient>
-          <linearGradient id="gReluz" x1="-1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".75"/><stop offset="1" stop-color="#fff" stop-opacity="0"/>
-            <animate attributeName="x1" values="-1;1.2;1.2" dur="4s" repeatCount="indefinite"/><animate attributeName="x2" values="0;2.2;2.2" dur="4s" repeatCount="indefinite"/></linearGradient>
-          <radialGradient id="gRubi" cx=".35" cy=".35"><stop offset="0" stop-color="#ffd6e0"/><stop offset=".4" stop-color="#e0405e"/><stop offset="1" stop-color="#6a0f24"/></radialGradient>
-          <clipPath id="cpChave"><use href="#formaChave"/></clipPath>
-        </defs>
-        <use href="#formaChave" fill="url(#gChave)" stroke="#6b4c14" stroke-width="1.2"/>
-        <g fill="none" stroke="#fff3c4" stroke-width="2" stroke-linecap="round" opacity=".8">
-          <circle cx="100" cy="88" r="30"/>
-          <path d="M100 58 C 112 70, 112 76, 100 88 C 88 76, 88 70, 100 58 M70 88 C 82 76, 88 76, 100 88 C 88 100, 82 100, 70 88 M130 88 C 118 76, 112 76, 100 88 C 112 100, 118 100, 130 88 M100 118 C 88 106, 88 100, 100 88 C 112 100, 112 106, 100 118"/>
+        <g id="chaveG" opacity="0">
+          <defs>
+            <linearGradient id="gHaste" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff3c8"/><stop offset=".35" stop-color="#e6bb5e"/><stop offset=".7" stop-color="#a87624"/><stop offset="1" stop-color="#5e3c0e"/></linearGradient>
+            <linearGradient id="gArco" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff3c8"/><stop offset=".35" stop-color="#e6bb5e"/><stop offset=".75" stop-color="#a87624"/><stop offset="1" stop-color="#6b4612"/></linearGradient>
+            <radialGradient id="gRubi2" cx=".35" cy=".35"><stop offset="0" stop-color="#ffd6e0"/><stop offset=".45" stop-color="#e0405e"/><stop offset="1" stop-color="#5a0c1e"/></radialGradient>
+            <g id="formaArco"><circle cx="0" cy="-27" r="16"/><circle cx="0" cy="27" r="16"/><circle cx="27" cy="0" r="16"/><circle cx="-24" cy="0" r="13"/><circle cx="0" cy="0" r="25"/><path d="M-9 -40 L-6 -52 L0 -45 L6 -52 L9 -40 Z"/></g>
+            <clipPath id="cpFora"><rect x="0" y="-200" width="600" height="400"/></clipPath>
+          </defs>
+          <g transform="translate(500 477) rotate(-12)">
+            <ellipse id="sombraChave" cx="104" cy="36" rx="30" ry="7" fill="#000" opacity=".28"/>
+            <g clip-path="url(#cpFora)"><g id="chaveMove">
+              <rect x="-70" y="-5.5" width="160" height="11" rx="4" fill="url(#gHaste)" stroke="#4a300a" stroke-width=".8"/>
+              <rect x="24" y="-8.5" width="6" height="17" rx="2" fill="url(#gHaste)" stroke="#4a300a" stroke-width=".8"/>
+              <rect x="40" y="-10" width="9" height="20" rx="3" fill="url(#gHaste)" stroke="#4a300a" stroke-width=".8"/>
+              <ellipse cx="64" cy="0" rx="5" ry="12.5" fill="url(#gHaste)" stroke="#4a300a" stroke-width=".8"/>
+              <rect x="-70" y="-4" width="160" height="2" fill="#fff8dc" opacity=".55"/>
+              <g id="arcoChave" transform="translate(98 0)">
+                <g transform="scale(.6 1)">
+                  <g id="espChave" transform="translate(7 3)"><use href="#formaArco" fill="#5a3a0d"/></g>
+                  <use href="#formaArco" fill="url(#gArco)" stroke="#4a300a" stroke-width="1.4"/>
+                  <g fill="#0a0812"><circle cx="0" cy="-27" r="6"/><circle cx="0" cy="27" r="6"/><circle cx="27" cy="0" r="6"/></g>
+                  <circle cx="0" cy="0" r="17" fill="none" stroke="#fff3c4" stroke-width="2" opacity=".7"/>
+                  <path d="M0 -17 C 7 -8, 7 -5, 0 0 C -7 -5, -7 -8, 0 -17 M0 17 C 7 8, 7 5, 0 0 C -7 5, -7 8, 0 17 M-17 0 C -8 -7, -5 -7, 0 0 C -5 7, -8 7, -17 0 M17 0 C 8 -7, 5 -7, 0 0 C 5 7, 8 7, 17 0" fill="none" stroke="#fff3c4" stroke-width="1.4" opacity=".75"/>
+                  <circle cx="0" cy="0" r="6.5" fill="url(#gRubi2)" stroke="#fff3c4" stroke-width="1.4"/><circle cx="-2" cy="-2.2" r="1.8" fill="#fff"/>
+                  <path d="M-12 -40 C -4 -36, 8 -30, 14 -18" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity=".55"/>
+                </g>
+              </g>
+            </g></g>
+          </g>
         </g>
-        <g fill="none" stroke="#6b4c14" stroke-width="1.4" opacity=".6"><circle cx="100" cy="44" r="13"/><circle cx="56" cy="88" r="13"/><circle cx="144" cy="88" r="13"/><circle cx="100" cy="128" r="11"/></g>
-        <circle cx="100" cy="88" r="11" fill="url(#gRubi)" stroke="#fff3c4" stroke-width="2"/>
-        <circle cx="96" cy="84" r="3" fill="#fff" opacity=".9"/>
-        <g fill="#fff3c4"><circle cx="92" cy="2" r="2.5"/><circle cx="100" cy="11" r="2.5"/><circle cx="108" cy="2" r="2.5"/></g>
-        <rect x="0" y="0" width="200" height="270" fill="url(#gReluz)" clip-path="url(#cpChave)"/>
+        <defs><filter id="brilhoF2"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
       </svg>
     </div>
     <div class="camada" id="estrelas-portal"><canvas id="ceu-portal" style="width:100%;height:100%"></canvas><div id="estrela-guia"></div></div>
@@ -1016,19 +1011,18 @@ let pSuave=0;tarefas.push(t=>{const sec=$('#portal');if(!visivel(sec))return;pSu
   $('#clarao').style.opacity=eio(faixa(p,.08,.2))*(1-eio(faixa(p,.21,.31)));
   // fechadura
   const veu=$('#veu');veu.style.opacity=p<.2?0:1;
-  const abre=eio(faixa(p,.6,.8));const s=1.3+abre*abre*60;
-  const m=`translate(500 ${500-abre*20}) scale(${s}) translate(-500 -500)`;$('#fechadura-m').setAttribute('transform',m);$('#espelho').setAttribute('transform',m);
+  const abre=eio(faixa(p,.6,.8));const s=1.3+abre*abre*100;
+  const m=`translate(500 ${500-abre*23}) scale(${s}) translate(-500 -500)`;$('#fechadura-m').setAttribute('transform',m);$('#espelho').setAttribute('transform',m);
   $('#espelho').style.opacity=1-faixa(p,.64,.74);
   // a cena do castelo atrás: espiada embaçada, depois nítida
   const cast=$('#cena-castelo');const nit=faixa(p,.62,.8);cast.style.filter=`blur(${(1-nit)*7}px) brightness(${.55+nit*.45})`;cast.style.transform=`scale(${1.35-nit*.35+Math.sin(t/3000)*.01*(1-nit)})`;
   // chave chega, entra e gira
-  const ch=$('#chave');const chega=eio(faixa(p,.32,.5)),gira=eio(faixa(p,.5,.58)),some=faixa(p,.58,.64);
-  const W=innerWidth,H=innerHeight;const kk=Math.max(W,H)/1000;
-  const entra=eio(faixa(p,.44,.5));const u=ch.offsetWidth/200,L=64*u;
-  const x0=W*1.15,y0=H*.42,x1=W/2,y1=H/2+(468-500)*1.3*kk;
-  ch.style.opacity=lim(faixa(p,.3,.36))*(1-some);
-  ch.style.setProperty('--corte',((6+entra*64)/270*100).toFixed(2)+'%');
-  ch.style.transform=`translate(${x0+(x1-x0)*chega}px,${y0+(y1-y0)*chega}px) translate(-50%,-74%) perspective(1500px) rotateY(${30+(1-chega)*25}deg) translateZ(${(1-entra)*L+(1-chega)*160}px) rotateZ(${gira*90+(1-chega)*25}deg) rotateX(-90deg) rotateY(-90deg)`;
+  const W=innerWidth,H=innerHeight;
+  const chega=eio(faixa(p,.32,.44)),entra=eio(faixa(p,.44,.5)),gira=eio(faixa(p,.5,.58)),some=faixa(p,.58,.64);
+  const kg=$('#chaveG');kg.setAttribute('transform',m);kg.setAttribute('opacity',(lim(faixa(p,.3,.36))*(1-some)).toFixed(3));
+  $('#chaveMove').setAttribute('transform',`translate(${(1-chega)*260+(1-entra)*46} ${(1-chega)*-40})`);
+  $('#arcoChave').setAttribute('transform',`translate(98 0) scale(1 ${(1-.84*gira).toFixed(3)})`);
+  $('#espChave').setAttribute('transform',`translate(${(7*(1-gira)).toFixed(2)} ${(3+5*gira).toFixed(2)})`);
   const leg=$('#leg-portal');const txt=p<.06?'siga a estrela':p<.24?'':p<.34?'do outro lado da fechadura, um castelo espera':p<.5?'uma chave dourada se aproxima…':'';
   if(leg._t!==txt){leg._t=txt;leg.style.opacity=0;setTimeout(()=>{leg.textContent=txt;leg.style.opacity=txt?1:0},250)}
   // arco mágico e título
