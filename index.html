@@ -130,7 +130,7 @@ a{color:var(--ouro2)}
 #titulo-castelo .k{font-family:var(--corpo);letter-spacing:.45em;font-size:12px;text-transform:uppercase;color:#f8e7b0cc}
 #titulo-castelo h2{font-family:var(--titulo);font-size:clamp(30px,4.6vw,66px);font-weight:400;text-shadow:0 0 40px #e8c36a66;margin-top:8px}
 #veu{pointer-events:none}
-#veu svg{width:100%;height:100%;display:block}
+#veu svg,#veu-tela{position:absolute;inset:0;width:100%;height:100%;display:block}
 #estrelas-portal{background:radial-gradient(ellipse at 50% 50%,#141640 0%,#05040c 75%);transform-origin:50% 50%}
 #estrela-guia{position:absolute;left:50%;top:50%;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#fff;box-shadow:0 0 10px 4px #fff,0 0 40px 14px #f8e7b0,0 0 120px 40px #e8c36a88}
 #estrela-guia:before,#estrela-guia:after{content:"";position:absolute;left:50%;top:50%;width:150px;height:1.5px;margin:-.75px 0 0 -75px;background:radial-gradient(ellipse at center,#fffc 0%,#f8e7b066 35%,transparent 70%);filter:blur(.6px);opacity:.55;animation:raio 3.5s ease-in-out infinite}
@@ -530,17 +530,15 @@ footer .volta .de-novo:hover{box-shadow:0 0 28px #e8c36a66;translate:0 -2px}
       <div id="titulo-castelo"><div class="k">uma peça gráfica sobre as princesas da Disney</div><h2 class="dourado">Era uma vez, em números</h2></div>
     </div>
     <div class="camada" id="veu">
-      <svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
-        <defs><mask id="mascara"><rect x="-2000" y="-2000" width="5000" height="5000" fill="#fff"/>
-          <g id="fechadura-m"><g transform="translate(500 492) scale(.62) translate(-500 -492)"><path d="M478 495 L462 590 Q500 600 538 590 L522 495 A44 44 0 1 0 478 495 Z" fill="#000" stroke="#fff" stroke-width="6"/></g></g></mask></defs>
-        <rect x="-2000" y="-2000" width="5000" height="5000" fill="#07060f" mask="url(#mascara)"/>
+      <canvas id="veu-tela"></canvas>
+      <svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice" id="svg-fechadura">
 <g id="espelho" transform="translate(500 500) scale(1.3) translate(-500 -500)">
           <defs>
             <radialGradient id="gBuraco" cx=".5" cy=".38" r=".7"><stop offset="0" stop-color="#000"/><stop offset=".75" stop-color="#020104"/><stop offset="1" stop-color="#140d04"/></radialGradient>
           </defs>
           <g transform="translate(500 492) scale(.62) translate(-500 -492)">
             <path id="buraco" d="M478 495 L462 590 Q500 600 538 590 L522 495 A44 44 0 1 0 478 495 Z" fill="url(#gBuraco)" stroke="#05030a" stroke-width="7" opacity="0"/>
-            <path d="M478 495 L462 590 Q500 600 538 590 L522 495 A44 44 0 1 0 478 495 Z" fill="none" stroke="#e8c36a" stroke-width="3.6" filter="url(#brilhoF2)"/>
+            <g fill="none" stroke="#e8c36a"><path d="M478 495 L462 590 Q500 600 538 590 L522 495 A44 44 0 1 0 478 495 Z" stroke-width="15" opacity=".1"/><path d="M478 495 L462 590 Q500 600 538 590 L522 495 A44 44 0 1 0 478 495 Z" stroke-width="9" opacity=".2"/><path d="M478 495 L462 590 Q500 600 538 590 L522 495 A44 44 0 1 0 478 495 Z" stroke-width="3.6"/></g>
           </g>
         </g>
 
@@ -1036,6 +1034,11 @@ preparaPortal();addEventListener('resize',preparaPortal);
 function desenhaCeuPortal(zoom,t){const W=innerWidth,H=innerHeight;cp.clearRect(0,0,W,H);const R=Math.hypot(W,H)/2;
   for(const e of estP){const rr=e.r*R*(1+zoom*zoom*6);if(rr>R*1.4)continue;const x=W/2+Math.cos(e.a)*rr,y=H/2+Math.sin(e.a)*rr;const b=.5+.5*Math.sin(t/700+e.f);
     cp.globalAlpha=b*(zoom>.05?.45:1);cp.fillStyle='#fff';cp.beginPath();if(zoom>.05){cp.strokeStyle='#fff8e6';cp.lineWidth=e.s*.5;cp.moveTo(x,y);const k=1-1/(1+zoom*3);cp.lineTo(W/2+(x-W/2)*(1-k*.25),H/2+(y-H/2)*(1-k*.25));cp.stroke()}else{cp.arc(x,y,e.s*.8,0,6.283);cp.fill()}}cp.globalAlpha=1}
+const veuT=$('#veu-tela'),vc=veuT.getContext('2d'),pFech=new Path2D('M478 495 L462 590 Q500 600 538 590 L522 495 A44 44 0 1 0 478 495 Z');let veuChave='';
+function desenhaVeu(abre,s){const dp=Math.min(devicePixelRatio||1,2),W=Math.round(innerWidth*dp),H=Math.round(innerHeight*dp),ch=abre.toFixed(4)+'|'+W+'x'+H;if(ch===veuChave)return;veuChave=ch;if(veuT.width!==W||veuT.height!==H){veuT.width=W;veuT.height=H}
+  const k=Math.max(W,H)/1000;vc.setTransform(1,0,0,1,0,0);vc.globalCompositeOperation='source-over';vc.clearRect(0,0,W,H);vc.fillStyle='#07060f';vc.fillRect(0,0,W,H);
+  vc.setTransform(k,0,0,k,(W-1000*k)/2,(H-1000*k)/2);vc.translate(500,500-abre*23);vc.scale(s,s);vc.translate(-500,-500);vc.translate(500,492);vc.scale(.62,.62);vc.translate(-500,-492);
+  vc.globalCompositeOperation='destination-out';vc.fill(pFech);vc.globalCompositeOperation='source-over';vc.strokeStyle='#07060f';vc.lineWidth=6;vc.stroke(pFech)}
 let pPortal=0;
 function portal(){const sec=$('#portal'),r=sec.getBoundingClientRect();pPortal=lim(-r.top/(r.height-innerHeight));window._portalPreso=r.top<=0&&r.bottom>=innerHeight}
 let pSuave=0;tarefas.push(t=>{const sec=$('#portal');if(!visivel(sec))return;pSuave+=(pPortal-pSuave)*.14;if(Math.abs(pPortal-pSuave)<.0002)pSuave=pPortal;const p=pSuave;
@@ -1046,14 +1049,15 @@ let pSuave=0;tarefas.push(t=>{const sec=$('#portal');if(!visivel(sec))return;pSu
   // fechadura
   const veu=$('#veu');veu.style.opacity=p<.2?0:1;{const v=p<.2||p>.79?'hidden':'visible';if(veu._v!==v){veu._v=v;veu.style.visibility=v}}
   const abre=eio(faixa(p,.6,.8));const s=1.3+abre*abre*100;
-  const m=`translate(500 ${500-abre*23}) scale(${s}) translate(-500 -500)`;$('#fechadura-m').setAttribute('transform',m);$('#espelho').setAttribute('transform',m);
+  const m=`translate(500 ${(500-abre*23).toFixed(3)}) scale(${s.toFixed(4)}) translate(-500 -500)`;desenhaVeu(abre,s);if(portal._m!==m){portal._m=m;$('#espelho').setAttribute('transform',m)}
+  {const d1=p<.67?'block':'none',d2=p<.64?'block':'none';if(portal._d1!==d1){portal._d1=d1;$('#svg-fechadura').style.display=d1}if(portal._d2!==d2){portal._d2=d2;$('#svg-chave').style.display=d2}}
   $('#espelho').style.opacity=1-faixa(p,.6,.67);$('#buraco').setAttribute('opacity',(eio(faixa(p,.33,.42))*(1-eio(faixa(p,.58,.66)))).toFixed(3));
   // a cena do castelo atrás: espiada embaçada, depois nítida
   const cast=$('#cena-castelo'),borr=$('#castelo-borrado');const nit=faixa(p,.62,.8);const esc=`scale(${(1.35-nit*.35+Math.sin(t/3000)*.01*(1-nit)).toFixed(4)})`;cast.style.transform=esc;if(borr){const o=(1-eio(nit)).toFixed(3);if(borr._o!==o){borr._o=o;borr.style.opacity=o;borr.style.visibility=o==='0.000'?'hidden':'visible'}if(o!=='0.000')borr.style.transform=esc}
   // chave chega, entra e gira
   const W=innerWidth,H=innerHeight;
   const chega=eio(faixa(p,.32,.44)),entra=eio(faixa(p,.44,.5)),gira=eio(faixa(p,.5,.58)),some=faixa(p,.58,.64);
-  const kg=$('#chaveG');kg.setAttribute('transform',m);kg.setAttribute('opacity',Math.max(some<1?.004:0,lim(faixa(p,.3,.36))*(1-some)).toFixed(3));
+  const kg=$('#chaveG');if(kg._m!==m){kg._m=m;kg.setAttribute('transform',m)}kg.setAttribute('opacity',Math.max(some<1?.004:0,lim(faixa(p,.3,.36))*(1-some)).toFixed(3));
   $('#chaveMove').setAttribute('transform',`translate(${(1-chega)*260+(1-entra)*46} ${(1-chega)*-40})`);
   const ang=gira*1.3,ca=Math.cos(ang),sa=Math.sin(ang),ky=(.84*ca).toFixed(3);$('#faceChave').setAttribute('transform',`scale(.84 ${ky})`);$$('.bordaChave').forEach((b,k)=>b.setAttribute('transform',`translate(${(1*(10-k)/10).toFixed(2)} ${((10-k)/10*(2.5+6.5*sa)).toFixed(2)}) scale(.84 ${ky})`));$('#sombraFace').setAttribute('opacity',(.22*sa).toFixed(3));
   
