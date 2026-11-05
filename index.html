@@ -519,34 +519,28 @@ footer .volta .de-novo:hover{box-shadow:0 0 28px #e8c36a66;translate:0 -2px}
     <div class="camada" id="veu">
       <svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
         <defs><mask id="mascara"><rect x="-2000" y="-2000" width="5000" height="5000" fill="#fff"/>
-          <g id="fechadura-m"><g transform="translate(500 492) scale(.62) translate(-500 -492)"><circle cx="500" cy="468" r="44" fill="#000"/><path d="M478 495 L462 590 Q500 600 538 590 L522 495 Z" fill="#000"/></g></g></mask></defs>
+          <g id="fechadura-m"><g transform="translate(500 492) scale(.62) translate(-500 -492)"><path d="M478 495 L462 590 Q500 600 538 590 L522 495 A44 44 0 1 0 478 495 Z" fill="#000" stroke="#fff" stroke-width="6"/></g></g></mask></defs>
         <rect x="-2000" y="-2000" width="5000" height="5000" fill="#07060f" mask="url(#mascara)"/>
-<g mask="url(#mascara)"><g id="espelho" transform="translate(500 500) scale(1.3) translate(-500 -500)">
+<g id="espelho" transform="translate(500 500) scale(1.3) translate(-500 -500)">
           <defs>
-            <linearGradient id="gEsp" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff0c2"/><stop offset=".3" stop-color="#e3b65a"/><stop offset=".65" stop-color="#a87624"/><stop offset="1" stop-color="#5e3c0e"/></linearGradient>
-            <radialGradient id="gEspLuz" cx=".7" cy=".3" r=".8"><stop offset="0" stop-color="#fff" stop-opacity=".45"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/></radialGradient>
+            <radialGradient id="gBuraco" cx=".5" cy=".38" r=".7"><stop offset="0" stop-color="#000"/><stop offset=".75" stop-color="#020104"/><stop offset="1" stop-color="#140d04"/></radialGradient>
           </defs>
-          <ellipse cx="506" cy="512" rx="120" ry="170" fill="#000" opacity=".45" filter="url(#brilhoF2)"/>
-          <path d="M500 392 C 534 404, 560 432, 564 472 C 568 528, 550 580, 500 632 C 450 580, 432 528, 436 472 C 440 432, 466 404, 500 392 Z" fill="url(#gEsp)" stroke="#4a300a" stroke-width="2"/>
-          <path d="M500 404 C 528 414, 550 438, 553 473 C 556 524, 540 572, 500 618 C 460 572, 444 524, 447 473 C 450 438, 472 414, 500 404 Z" fill="none" stroke="#fff3c4" stroke-width="1.4" opacity=".55"/>
-          <path d="M444 470 C 410 452, 380 470, 388 498 C 394 520, 420 516, 416 498 M452 585 C 420 600, 410 640, 436 648 C 456 654, 462 632, 446 628 M474 410 C 456 382, 470 358, 492 364 C 506 370, 502 388, 488 384 M444 530 C 426 534, 418 552, 430 562 M 556 470 C 590 452 620 470 612 498 C 606 520 580 516 584 498 M 548 585 C 580 600 590 640 564 648 C 544 654 538 632 554 628 M 526 410 C 544 382 530 358 508 364 C 494 370 498 388 512 384 M 556 530 C 574 534 582 552 570 562" fill="none" stroke="#4a300a" stroke-width="9" stroke-linecap="round"/>
-          <path d="M444 470 C 410 452, 380 470, 388 498 C 394 520, 420 516, 416 498 M452 585 C 420 600, 410 640, 436 648 C 456 654, 462 632, 446 628 M474 410 C 456 382, 470 358, 492 364 C 506 370, 502 388, 488 384 M444 530 C 426 534, 418 552, 430 562 M 556 470 C 590 452 620 470 612 498 C 606 520 580 516 584 498 M 548 585 C 580 600 590 640 564 648 C 544 654 538 632 554 628 M 526 410 C 544 382 530 358 508 364 C 494 370 498 388 512 384 M 556 530 C 574 534 582 552 570 562" fill="none" stroke="url(#gEsp)" stroke-width="6" stroke-linecap="round"/>
-          <path d="M444 470 C 410 452, 380 470, 388 498 C 394 520, 420 516, 416 498 M452 585 C 420 600, 410 640, 436 648 C 456 654, 462 632, 446 628 M474 410 C 456 382, 470 358, 492 364 C 506 370, 502 388, 488 384 M444 530 C 426 534, 418 552, 430 562 M 556 470 C 590 452 620 470 612 498 C 606 520 580 516 584 498 M 548 585 C 580 600 590 640 564 648 C 544 654 538 632 554 628 M 526 410 C 544 382 530 358 508 364 C 494 370 498 388 512 384 M 556 530 C 574 534 582 552 570 562" fill="none" stroke="#fff3c4" stroke-width="1.4" stroke-linecap="round" opacity=".6" transform="translate(-1 -1)"/>
-          <g fill="url(#gEsp)" stroke="#4a300a" stroke-width="2"><circle cx="500" cy="372" r="9"/><circle cx="500" cy="652" r="8"/><path d="M492 640 L500 676 L508 640 Z"/></g>
-          <path d="M500 392 C 534 404, 560 432, 564 472 C 568 528, 550 580, 500 632 C 450 580, 432 528, 436 472 C 440 432, 466 404, 500 392 Z" fill="url(#gEspLuz)"/>
-          <path transform="translate(500 492) scale(.62) translate(-500 -492)" d="M478 495 L462 590 Q500 600 538 590 L522 495 A44 44 0 1 0 478 495 Z" fill="none" stroke="#3a2508" stroke-width="6"/><path transform="translate(500 492) scale(.62) translate(-500 -492)" d="M478 495 L462 590 Q500 600 538 590 L522 495 A44 44 0 1 0 478 495 Z" fill="none" stroke="#fff3c4" stroke-width="2" opacity=".5" transform-origin="500 492"/>
-        </g></g>
+          <g transform="translate(500 492) scale(.62) translate(-500 -492)">
+            <path id="buraco" d="M478 495 L462 590 Q500 600 538 590 L522 495 A44 44 0 1 0 478 495 Z" fill="url(#gBuraco)" stroke="#05030a" stroke-width="7" opacity="0"/>
+            <path d="M478 495 L462 590 Q500 600 538 590 L522 495 A44 44 0 1 0 478 495 Z" fill="none" stroke="#e8c36a" stroke-width="3.6" filter="url(#brilhoF2)"/>
+          </g>
+        </g>
         <g id="chaveG" opacity="0">
           <defs>
             <linearGradient id="gHaste" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff3c8"/><stop offset=".35" stop-color="#e6bb5e"/><stop offset=".7" stop-color="#a87624"/><stop offset="1" stop-color="#5e3c0e"/></linearGradient>
             <linearGradient id="gArco" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff3c8"/><stop offset=".35" stop-color="#e6bb5e"/><stop offset=".75" stop-color="#a87624"/><stop offset="1" stop-color="#6b4612"/></linearGradient>
             <radialGradient id="gRubi2" cx=".35" cy=".35"><stop offset="0" stop-color="#ffd6e0"/><stop offset=".45" stop-color="#e0405e"/><stop offset="1" stop-color="#5a0c1e"/></radialGradient>
             <g id="formaArco"><circle cx="0" cy="-27" r="16"/><circle cx="0" cy="27" r="16"/><circle cx="27" cy="0" r="16"/><circle cx="-24" cy="0" r="13"/><circle cx="0" cy="0" r="25"/><path d="M-9 -40 L-6 -52 L0 -45 L6 -52 L9 -40 Z"/></g>
-            <clipPath id="cpFora"><rect x="0" y="-200" width="600" height="400"/></clipPath>
+            <linearGradient id="gEntra" gradientUnits="userSpaceOnUse" x1="-24" y1="0" x2="26" y2="0"><stop offset="0" stop-color="#000"/><stop offset=".55" stop-color="#555"/><stop offset="1" stop-color="#fff"/></linearGradient><mask id="mEntra" maskUnits="userSpaceOnUse" x="-300" y="-300" width="1000" height="600"><rect x="-300" y="-300" width="1000" height="600" fill="url(#gEntra)"/></mask>
           </defs>
           <g transform="translate(500 477) rotate(-12)">
             <ellipse id="sombraChave" cx="104" cy="36" rx="30" ry="7" fill="#000" opacity=".28"/>
-            <g clip-path="url(#cpFora)"><g id="chaveMove">
+            <g mask="url(#mEntra)"><g id="chaveMove">
               <rect x="-70" y="-5.5" width="160" height="11" rx="4" fill="url(#gHaste)" stroke="#4a300a" stroke-width=".8"/>
               <rect x="24" y="-8.5" width="6" height="17" rx="2" fill="url(#gHaste)" stroke="#4a300a" stroke-width=".8"/>
               <rect x="40" y="-10" width="9" height="20" rx="3" fill="url(#gHaste)" stroke="#4a300a" stroke-width=".8"/>
@@ -1016,7 +1010,7 @@ let pSuave=0;tarefas.push(t=>{const sec=$('#portal');if(!visivel(sec))return;pSu
   const veu=$('#veu');veu.style.opacity=p<.2?0:1;
   const abre=eio(faixa(p,.6,.8));const s=1.3+abre*abre*100;
   const m=`translate(500 ${500-abre*23}) scale(${s}) translate(-500 -500)`;$('#fechadura-m').setAttribute('transform',m);$('#espelho').setAttribute('transform',m);
-  $('#espelho').style.opacity=1-faixa(p,.64,.74);
+  $('#espelho').style.opacity=1-faixa(p,.64,.74);$('#buraco').setAttribute('opacity',(eio(faixa(p,.33,.42))*(1-eio(faixa(p,.58,.66)))).toFixed(3));
   // a cena do castelo atrás: espiada embaçada, depois nítida
   const cast=$('#cena-castelo');const nit=faixa(p,.62,.8);cast.style.filter=`blur(${(1-nit)*7}px) brightness(${.55+nit*.45})`;cast.style.transform=`scale(${1.35-nit*.35+Math.sin(t/3000)*.01*(1-nit)})`;
   // chave chega, entra e gira
