@@ -1,24 +1,90 @@
 [
- {"id": "abre", "texto": "Era uma vez... um desenhista, um estúdio pequeno, e uma ideia que muita gente achou loucura."},
- {"id": "walt1", "texto": "Walt Disney nasceu em mil novecentos e um, em Chicago, e passou a infância numa fazenda, desenhando os animais. Depois de um primeiro estúdio que faliu, abriu com o irmão Roy um pequeno estúdio em Los Angeles. Em mil novecentos e vinte e oito, um ratinho chamado Mickey apareceu com som sincronizado. E, em trinta e dois, veio o primeiro desenho em cores a ganhar um Oscar."},
- {"id": "walt2", "texto": "Em mil novecentos e trinta e sete, Walt apostou tudo num longa de animação. Muitos chamaram de loucura. Mas Branca de Neve virou um sucesso, e nasceu a primeira princesa. O filme rendeu um Oscar especial, com uma estatueta normal e sete pequeninas, uma para cada anão."},
- {"id": "walt3", "texto": "Depois da guerra, Cinderela voltou a encher os cinemas. Em cinquenta e cinco, abriu a Disneylândia, com um castelo no centro. Aurora foi a última princesa que Walt viu nascer. Ele morreu em mil novecentos e sessenta e seis. Mas todas as princesas que vieram depois ainda carregam o nome dele."},
- {"id": "motiv", "texto": "Por que as princesas? Esta pesquisa nasceu da vontade de fugir do óbvio. A ideia é mostrar que a estatística também funciona num universo de fantasia. Parece só entretenimento, mas revela como o público se comporta diante de duas coisas que se repetem no cinema. As reprises, e os remakes."},
- {"id": "pergunta", "texto": "E a pergunta que guia tudo é esta. O público se engaja mais com as princesas da Disney na estreia? Para responder, são treze princesas, dezessete filmes, oitenta e dois anos de histórias, e mais de dezesseis bilhões de dólares arrecadados no mundo."},
- {"id": "portal1", "texto": "Lembra do seu primeiro era uma vez? Então siga a estrela."},
- {"id": "portal2", "texto": "Do outro lado da fechadura, um castelo espera. Está preparado?"},
- {"id": "castelo", "texto": "Era uma vez... em números."},
- {"id": "baile", "texto": "A linha oficial tem treze princesas, em dezessete filmes, contando os remakes com atores. Cinderela, Bela, Jasmine e Mulan ganharam nova versão. Raya sai da análise, porque o orçamento do filme nunca foi divulgado. Mulan sai também, porque o remake estreou direto no streaming. Ficam onze princesas, em catorze filmes. São elas que contam esta história."},
- {"id": "faxina", "texto": "Mas, antes do baile, uma boa arrumação. Os números vieram de quatro bases de dados e de uma tabela de inflação. E chegaram bagunçados, com número escrito como texto, nota copiada e células vazias. Então veio a faxina, sempre em cópias, sem mexer nos arquivos originais. De mil cento e oitenta e oito linhas, ficaram dezessete filmes, e depois os catorze da análise. Nenhum valor que faltava foi inventado. E como um dólar de mil novecentos e trinta e sete vale cerca de vinte e dois de hoje, todo valor está em dólares de dois mil e vinte e cinco."},
- {"id": "gigante", "texto": "Quanto cada filme arrecadou? Cada ponto é um filme. A maioria fez entre quinhentos milhões e um bilhão e meio de dólares no mundo. A média é de um bilhão e cento e cinquenta milhões. Mas a mediana, o filme do meio, fica em oitocentos e sessenta e oito milhões. A diferença tem nome. Branca de Neve arrecadou quatro bilhões e cem milhões, um valor atípico. Por isso, as comparações usam a mediana."},
- {"id": "h1", "texto": "Hipótese um. O remake arrecada mais, mas rende menos? No valor da época, os três remakes arrecadaram mais que as animações. Mas, com a inflação corrigida, Cinderela de cinquenta passa o próprio remake. E os remakes custaram de três a quatro vezes mais. Por dólar gasto, todos rendem menos. A hipótese se confirma em parte."},
- {"id": "h2", "texto": "Hipótese dois. Quanto mais tempo entre os dois filmes, mais forte o remake? Cada ponto é um par. Quanto mais à direita, mais anos de espera. Cinderela, que esperou sessenta e cinco anos, ficou abaixo da linha. Os pontos descem, o contrário do esperado. Com só três pares, é uma pista, e a hipótese não se confirma."},
- {"id": "h3", "texto": "Hipótese três. Os clássicos venceram por voltar aos cinemas? As barras mostram só a estreia, nos Estados Unidos. O dourado são as reprises, quando o filme voltava às telas. Só os mais antigos têm. Em Cinderela, as reprises renderam mais que a própria estreia. Mesmo assim, contando só a estreia, a era Walt continua na frente. Confirmada em parte."},
- {"id": "ingresso", "texto": "Este ingresso guarda um segredo. Cinderela voltou aos cinemas dez vezes, até mil novecentos e oitenta e sete. Setenta e cinco por cento do que ela arrecadou nos Estados Unidos veio das reprises."},
- {"id": "h4", "texto": "Hipótese quatro. Filme mais bem avaliado arrecada mais? Cada ponto cruza a nota do público com a bilheteria. Os pontos ficam espalhados, e as maiores notas não têm as maiores bilheterias. A correlação é muito fraca. A hipótese não se confirma."},
- {"id": "h5", "texto": "Hipótese cinco. Com o passar dos anos, os filmes ficaram mais longos? A linha vai de Cinderela, com setenta e quatro minutos, até Moana, com cento e sete. E os remakes são os mais longos de todos. Com o tempo, os filmes ficaram mais longos, mais caros, e passaram a render menos. Confirmada."},
- {"id": "telas", "texto": "Da sala escura para a palma da mão. Antes, rever uma princesa era voltar ao cinema. Com as fitas de vídeo, a partir de oitenta e quatro, e depois o DVD, as reprises somem. Em dois mil e dezenove chega o Disney Mais. O público não sumiu, mudou de lugar. Quem assiste em casa avalia, comenta e vota. Por isso, a bilheteria conta só uma parte do encanto."},
- {"id": "sintese", "texto": "E a resposta é sim. O público se engaja mais com as princesas da Disney na estreia. Oitenta e seis por cento de toda a bilheteria nos Estados Unidos veio do lançamento. As reprises só pesaram nos clássicos. Este conto tem seus limites. São só catorze filmes e três pares de remake. Os resultados mostram padrões, sem provar causas."},
- {"id": "final", "texto": "E viveram felizes para sempre? Na estreia, com certeza. Depois, cada um na sua tela."},
- {"id": "fontes", "texto": "Estas foram as fontes desta história. Obrigado por assistir. E, se quiser, era uma vez... de novo."}
+ {
+  "id": "abre",
+  "texto": "Era uma vez... um desenhista, um estúdio pequeno, e uma ideia que muita gente achou loucura."
+ },
+ {
+  "id": "walt1",
+  "texto": "Walt Disney nasceu em mil novecentos e um, em Chicago, e passou a infância numa fazenda, desenhando os animais. Depois de um primeiro estúdio que faliu, abriu com o irmão Roy um pequeno estúdio em Los Angeles. Em mil novecentos e vinte e oito, um ratinho chamado Mickey apareceu com som sincronizado. E, em trinta e dois, veio o primeiro desenho em cores a ganhar um Oscar."
+ },
+ {
+  "id": "walt2",
+  "texto": "Em mil novecentos e trinta e sete, Walt apostou tudo num longa de animação. Muitos chamaram de loucura. Mas Branca de Neve virou um sucesso, e nasceu a primeira princesa. O filme rendeu um Oscar especial, com uma estatueta normal e sete pequeninas, uma para cada anão."
+ },
+ {
+  "id": "walt3",
+  "texto": "Depois da guerra, Cinderela voltou a encher os cinemas. Em cinquenta e cinco, abriu a Disneylândia, com um castelo no centro. Aurora foi a última princesa que Walt viu nascer. Ele morreu em mil novecentos e sessenta e seis. Mas todas as princesas que vieram depois ainda carregam o nome dele."
+ },
+ {
+  "id": "motiv",
+  "texto": "Por que as princesas? Esta pesquisa nasceu da vontade de fugir do óbvio. A ideia é mostrar que a estatística também funciona num universo de fantasia. Parece só entretenimento, mas revela como o público se comporta diante de duas coisas que se repetem no cinema. As reprises, e os remakes."
+ },
+ {
+  "id": "pergunta",
+  "texto": "E a pergunta que guia tudo é esta. O público se engaja mais com as princesas da Disney na estreia? Para responder, são treze princesas, dezessete filmes, oitenta e dois anos de histórias, e mais de dezesseis bilhões de dólares arrecadados no mundo."
+ },
+ {
+  "id": "portal1",
+  "texto": "Lembra do seu primeiro era uma vez? Então siga a estrela."
+ },
+ {
+  "id": "portal2",
+  "texto": "Do outro lado da fechadura, um castelo espera. Está preparado?"
+ },
+ {
+  "id": "castelo",
+  "texto": "Era uma vez... em números."
+ },
+ {
+  "id": "baile",
+  "texto": "A linha oficial tem treze princesas, em dezessete filmes, contando os remakes com atores. Cinderela, Bela, Jasmine e Mulan ganharam nova versão. Raya sai da análise, porque o orçamento do filme nunca foi divulgado. Mulan sai também, porque o remake estreou direto no streaming. Ficam onze princesas, em catorze filmes. São elas que contam esta história."
+ },
+ {
+  "id": "faxina",
+  "texto": "Mas, antes do baile, uma boa arrumação. Os números vieram de quatro bases de dados e de uma tabela de inflação. A base A, do GitHub de Keith Galli, tem quatrocentos e trinta e dois filmes. A base B, do Kaggle, tem quinhentos e setenta e nove. A base C, do Box Office Mojo, traz setenta e um lançamentos. A base D, do OMDb, tem os dezessete filmes. E a tabela de inflação cobre oitenta e nove anos. Os dados chegaram bagunçados, com número escrito como texto, nota copiada e células vazias. Então veio a faxina, sempre em cópias, sem mexer nos arquivos originais. De mil cento e oitenta e oito linhas, ficaram dezessete filmes, e depois os catorze da análise. Nenhum valor que faltava foi inventado. Um dólar de mil novecentos e trinta e sete vale cerca de vinte e dois dólares de hoje. Por isso, todos os valores estão em dólares de dois mil e vinte e cinco, e os filmes antigos podem ser comparados com os novos de forma justa."
+ },
+ {
+  "id": "gigante",
+  "texto": "Quanto cada filme arrecadou? Cada ponto é um filme, com a bilheteria mundial corrigida pela inflação. A maioria fez entre quinhentos milhões e um bilhão e meio de dólares. A média é de um bilhão e cento e cinquenta milhões. Mas a mediana, que é o filme do meio da fila, fica em oitocentos e sessenta e oito milhões. A diferença tem nome. Branca de Neve arrecadou quatro bilhões e cem milhões, mais que Tiana, Ariel, Aurora, Pocahontas, Merida e Moana juntas. É um valor atípico. Sem ela, a média cai duzentos e trinta milhões, e a mediana quase não muda. Isso explica a escolha do trabalho. A média é puxada por um valor extremo, e a mediana representa melhor o filme típico. Por isso, as comparações usam a mediana."
+ },
+ {
+  "id": "h1",
+  "texto": "Hipótese um. O remake arrecada mais, mas rende menos? No valor da época, os três remakes arrecadaram mais que as animações. Com a inflação corrigida, a história muda. Cinderela de mil novecentos e cinquenta fez um bilhão e duzentos e noventa milhões, e o remake, setecentos e trinta e sete milhões. Já A Bela e a Fera e Aladdin ganharam das animações. Os remakes também custaram de três a quatro vezes mais. O retorno, que é quantas vezes a bilheteria paga o orçamento, despenca. Cinderela rendeu trinta e três vezes o que custou, e o remake, menos de seis. A Bela e a Fera caiu de dezoito para oito, e Aladdin, de dezoito para menos de seis. Ou seja, os remakes atraem muito público, mas cada dólar investido volta menos. A hipótese se confirma em parte."
+ },
+ {
+  "id": "h2",
+  "texto": "Hipótese dois. Quanto mais tempo entre os dois filmes, mais forte o remake? Cada ponto é um par. Quanto mais à direita, mais anos de espera, e quanto mais alto, mais o remake ganhou do original. Cinderela esperou sessenta e cinco anos, e o remake fez só cinquenta e sete por cento da bilheteria da animação. A Bela e a Fera esperou vinte e seis anos e fez cinquenta e seis por cento a mais. Aladdin esperou vinte e sete e fez catorze por cento a mais. A correlação de Pearson é de menos zero vírgula nove dois, forte e negativa. Isso quer dizer que, aqui, mais espera veio junto com um remake mais fraco, o contrário do esperado. Mas, com só três pares, é uma pista e não uma prova. A hipótese não se confirma."
+ },
+ {
+  "id": "h3",
+  "texto": "Hipótese três. Os clássicos venceram por voltar aos cinemas? Cada barra é a bilheteria de um filme nos Estados Unidos, e a parte dourada são as reprises, quando o filme voltava às telas. Só os mais antigos têm. Branca de Neve tem dezoito por cento da bilheteria vindo das reprises, Aurora, dez, Ariel, vinte, e A Bela e a Fera, vinte e cinco. Em Cinderela, as reprises renderam mais que a própria estreia. Por período, a mediana da era Walt é de quinhentos e vinte e oito milhões nos Estados Unidos, contra quatrocentos e quarenta e oito dos remakes, trezentos e setenta e oito da Renascença, e trezentos e quinze das princesas modernas. As reprises ajudaram muito os clássicos, mas não explicam tudo. Confirmada em parte."
+ },
+ {
+  "id": "ingresso",
+  "texto": "Este ingresso guarda um segredo. Cinderela voltou aos cinemas dez vezes, até mil novecentos e oitenta e sete. Setenta e cinco por cento do que ela arrecadou nos Estados Unidos veio dessas voltas. Nenhuma outra princesa voltou tanto."
+ },
+ {
+  "id": "h4",
+  "texto": "Hipótese quatro. Filme mais bem avaliado arrecada mais? Cada ponto cruza a nota do público no IMDb com a bilheteria mundial. Os pontos ficam espalhados. A Bela e a Fera e Aladdin têm as maiores notas, oito, mas arrecadaram bem menos que Branca de Neve, que tem sete vírgula seis. E Pocahontas tem a menor nota, seis vírgula sete, mas arrecadou mais que Ariel, Aurora e Tiana. A correlação é de zero vírgula um nove, muito fraca, e cai para zero vírgula zero sete sem Branca de Neve. Na prática, saber a nota de um filme quase não ajuda a prever quanto ele arrecadou. A hipótese não se confirma."
+ },
+ {
+  "id": "h5",
+  "texto": "Hipótese cinco. Com o passar dos anos, os filmes ficaram mais longos? A linha liga as animações, de Cinderela, com setenta e quatro minutos, até Moana, com cento e sete. Os remakes são os mais longos de todos, com trinta e um a quarenta e cinco minutos a mais que a sua animação. A Bela e a Fera de dois mil e dezessete dura cento e vinte e nove minutos, quase duas Cinderelas. A correlação entre o ano e a duração é de zero vírgula sete nove, forte e positiva. Isso mostra que, com o tempo, os filmes ficaram mais longos, mais caros, e passaram a render menos. Confirmada."
+ },
+ {
+  "id": "telas",
+  "texto": "Da sala escura para a palma da mão. Antes, rever uma princesa era voltar ao cinema, e as barras mostram quanto da bilheteria veio dessas voltas. Com as fitas de vídeo, a partir de mil novecentos e oitenta e quatro, e depois o DVD, as reprises somem. Em dois mil e dezenove chega o Disney Mais, e em dois mil e vinte, Mulan estreia direto no streaming. O público não sumiu, mudou de lugar. Enrolados tem quinhentos e cinquenta e cinco mil votos no IMDb, mais que o dobro de Branca de Neve, que é a maior bilheteria e tem duzentos e quarenta e um mil. Quem assiste em casa avalia, comenta e vota. Por isso, a bilheteria conta só uma parte do encanto."
+ },
+ {
+  "id": "sintese",
+  "texto": "E a resposta é sim. O público se engaja mais com as princesas da Disney na estreia. Oitenta e seis por cento de toda a bilheteria dos catorze filmes nos Estados Unidos veio do lançamento. As reprises só pesaram nos clássicos e quase sumiram depois de mil novecentos e noventa e um. Das cinco hipóteses, a primeira e a terceira se confirmam em parte, a segunda e a quarta não se confirmam, e a quinta se confirma. Este conto tem seus limites. São só catorze filmes e três pares de remake, então os resultados mostram padrões, sem provar causas. E a bilheteria mede apenas quem foi ao cinema."
+ },
+ {
+  "id": "final",
+  "texto": "E viveram felizes para sempre? Na estreia, com certeza. Depois, cada um na sua tela."
+ },
+ {
+  "id": "fontes",
+  "texto": "Estas foram as fontes desta história. Obrigado por assistir. E, se quiser, era uma vez... de novo."
+ }
 ]
