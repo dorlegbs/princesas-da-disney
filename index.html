@@ -283,8 +283,9 @@ svg text{font-family:var(--corpo)}
 .bilhete .info .k{font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--ouro2)}
 .bilhete .info h4{font-family:var(--serif);font-size:clamp(24px,3vw,34px);font-weight:500}
 .bilhete .info p{margin:0;font-size:13.5px;color:var(--suave);line-height:1.4}
-.bilhete .revela{display:none}
-.bilhete.rasgado .revela{display:block;font-family:var(--serif);font-size:clamp(17px,2vw,21px);color:#fff;line-height:1.35}
+.bilhete .revela{display:none;opacity:0}
+.bilhete.rasgado .revela{display:block;font-family:var(--serif);font-size:clamp(17px,2vw,21px);color:#fff;line-height:1.35;animation:revela 1.3s cubic-bezier(.16,.84,.3,1) .45s forwards}
+@keyframes revela{from{opacity:0;filter:blur(8px);transform:translateY(12px) scale(.96)}to{opacity:1;filter:none;transform:none}}
 .bilhete.rasgado .antes{display:none}
 .bilhete .canhoto{flex:0 0 clamp(110px,22%,150px);border-radius:0 18px 18px 0;border-left:2px dashed #e8c36a88;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:4px;
   transform-origin:0% 100%;touch-action:none;user-select:none;-webkit-user-select:none;
@@ -292,7 +293,22 @@ svg text{font-family:var(--corpo)}
 .bilhete .canhoto h5{margin:0;font-family:var(--titulo);font-size:15px;letter-spacing:.08em;color:var(--ouro2);font-weight:400}
 .bilhete .canhoto p{margin:0;font-size:11.5px;color:var(--suave)}
 .bilhete .canhoto span{font-family:ui-monospace,Consolas,monospace;font-size:11px;color:#fff9}
-.bilhete .canhoto.cai{transition:transform 1.2s cubic-bezier(.5,0,.7,.4),opacity 1.2s;transform:translate(60px,80vh) rotate(38deg)!important;opacity:0}
+.bilhete .canhoto{box-shadow:calc(var(--puxa,0)*-1px) 0 calc(8px + var(--puxa,0)*30px) calc(var(--puxa,0)*2px) #e8c36a77;transition:box-shadow .3s}
+.bilhete .canhoto:before{content:"";position:absolute;left:-3px;top:6%;bottom:6%;width:4px;border-radius:4px;pointer-events:none;
+  background:linear-gradient(transparent,#fff6d6 50%,transparent) no-repeat;background-size:100% 35%;filter:drop-shadow(0 0 6px #e8c36a) drop-shadow(0 0 12px #e8c36a);animation:costura 2.2s ease-in-out infinite;opacity:calc(.55 + var(--puxa,0)*.45)}
+@keyframes costura{0%{background-position:0 -40%}100%{background-position:0 140%}}
+.bilhete .canhoto:after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(105deg,transparent 30%,#fff6d633 50%,transparent 70%);background-size:250% 100%;animation:lustro 3.2s ease-in-out infinite}
+@keyframes lustro{0%,40%{background-position:120% 0}100%{background-position:-120% 0}}
+.bilhete .canhoto.cai{clip-path:polygon(2.14% 0.0%,1.00% 4.2%,4.30% 8.3%,0.48% 12.5%,3.54% 16.7%,2.41% 20.8%,0.38% 25.0%,3.35% 29.2%,0.25% 33.3%,2.86% 37.5%,0.46% 41.7%,0.60% 45.8%,2.80% 50.0%,5.46% 54.2%,0.82% 58.3%,1.47% 62.5%,4.14% 66.7%,6.25% 70.8%,3.81% 75.0%,2.62% 79.2%,6.44% 83.3%,0.31% 87.5%,5.67% 91.7%,1.91% 95.8%,0.95% 100.0%,100% 100%,100% 0);animation:cai 1.9s cubic-bezier(.45,0,.55,1) forwards;pointer-events:none}
+.bilhete .canhoto.cai:before,.bilhete .canhoto.cai:after{display:none}
+@keyframes cai{0%{transform:var(--t0,none);filter:brightness(1.4) drop-shadow(0 0 18px #e8c36a)}
+  22%{transform:translate(46px,-26px) rotate(16deg);filter:brightness(1.3) drop-shadow(0 0 24px #e8c36a)}
+  45%{transform:translate(80px,10px) rotate(24deg);opacity:1}
+  100%{transform:translate(150px,85vh) rotate(62deg);opacity:0;filter:none}}
+.bilhete.rasgado .corpo{clip-path:polygon(0 0,calc(100% - 0.71%) 0.0%,calc(100% - 0.33%) 4.2%,calc(100% - 1.43%) 8.3%,calc(100% - 0.16%) 12.5%,calc(100% - 1.18%) 16.7%,calc(100% - 0.80%) 20.8%,calc(100% - 0.13%) 25.0%,calc(100% - 1.12%) 29.2%,calc(100% - 0.08%) 33.3%,calc(100% - 0.95%) 37.5%,calc(100% - 0.15%) 41.7%,calc(100% - 0.20%) 45.8%,calc(100% - 0.93%) 50.0%,calc(100% - 1.82%) 54.2%,calc(100% - 0.27%) 58.3%,calc(100% - 0.49%) 62.5%,calc(100% - 1.38%) 66.7%,calc(100% - 2.08%) 70.8%,calc(100% - 1.27%) 75.0%,calc(100% - 0.87%) 79.2%,calc(100% - 2.15%) 83.3%,calc(100% - 0.10%) 87.5%,calc(100% - 1.89%) 91.7%,calc(100% - 0.64%) 95.8%,calc(100% - 0.32%) 100.0%,0 100%)}
+.bilhete .corpo:after{content:"";position:absolute;right:0;top:4%;bottom:4%;width:3px;opacity:0;pointer-events:none;background:linear-gradient(transparent,#fff6d6,#e8c36a,#fff6d6,transparent);filter:drop-shadow(0 0 8px #e8c36a)}
+.bilhete.rasgado .corpo:after{animation:fagulha 2.4s ease-out forwards}
+@keyframes fagulha{0%{opacity:1}100%{opacity:.25}}
 .dica-rasgar{margin-top:30px;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--suave)}
 
 /* ===== efeitos das princesas (easter eggs) ===== */
@@ -370,6 +386,17 @@ footer h3{font-family:var(--magia);font-size:46px;font-weight:400;margin-bottom:
 .orbe .f{display:block;line-height:1.3;min-height:2.6em}
 .no b,.contador b,.numeros b{font-variant-numeric:lining-nums;font-feature-settings:"lnum" 1}
 html{font-variant-numeric:lining-nums}
+footer h3,footer .fonte,footer .credito{opacity:0;transform:translateY(26px);filter:blur(6px);transition:opacity 1.4s ease var(--atraso,0s),transform 1.6s cubic-bezier(.16,.84,.3,1) var(--atraso,0s),filter 1.4s ease var(--atraso,0s)}
+footer .on{opacity:1!important;transform:none!important;filter:none!important}
+footer .fonte{position:relative;overflow:hidden;padding:4px 10px;border-radius:14px}
+footer .fonte:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(100deg,transparent 30%,#fff6d640 50%,transparent 70%);transform:translateX(-130%)}
+footer .fonte.on:after{animation:varreLuz 1.8s ease calc(var(--atraso,0s) + .5s) forwards}
+@keyframes varreLuz{to{transform:translateX(130%)}}
+footer .fonte a{transition:text-shadow .4s,color .4s}
+footer .fonte.on a{animation:brilhaLink 1.6s ease calc(var(--atraso,0s) + .7s)}
+@keyframes brilhaLink{50%{text-shadow:0 0 14px #f8e7b0,0 0 26px #e8c36a;color:#fff6d6}}
+footer h3.on{animation:reluz 6s linear infinite,brilhaTitulo 3.5s ease-in-out 1.2s infinite}
+@keyframes brilhaTitulo{50%{filter:drop-shadow(0 0 14px #e8c36a99)}}
 </style>
 </head>
 <body class="magico">
@@ -940,6 +967,7 @@ function aoRolar(){
 addEventListener('scroll',()=>{if(!aoRolar._p){aoRolar._p=1;requestAnimationFrame(()=>{aoRolar._p=0;aoRolar()})}},{passive:true});
 addEventListener('resize',()=>aoRolar());
 $$('.sobe').forEach(el=>aoAparecer(el,e=>e.classList.add('on'),.2));
+$$('footer h3,footer .fonte,footer .credito').forEach((el,k)=>{el.style.setProperty('--atraso',(k*.12)+'s');aoAparecer(el,e=>{e.classList.add('on');if(e.tagName==='H3'&&!calmo){const r=e.getBoundingClientRect();brilhos(r.left+r.width/2,r.top+r.height/2,30,1.1)}},.15)});
 (function(){const tm=$('#texto-motivacao');tm.innerHTML=tm.textContent.trim().split(/\s+/).map(w=>`<span class="palavra">${w}</span>`).join(' ');tm._p=[...tm.querySelectorAll('.palavra')]})();
 $$('[data-conta]').forEach(b=>aoAparecer(b,()=>contaTexto(b,0,+b.dataset.conta,1800,+(b.dataset.dec||0),b.dataset.pre||'',b.dataset.pos||''),.5));
 $('#de-novo').addEventListener('click',e=>{e.preventDefault();brilhos(e.clientX,e.clientY,60);setTimeout(()=>scrollTo({top:0,behavior:calmo?'auto':'smooth'}),200)});
@@ -1184,11 +1212,11 @@ CENAS.baile=function(i){
   area.addEventListener('pointermove',e=>{if(ini)return;const r=b.getBoundingClientRect();const px=(e.clientX-r.left-r.width/2)/260,py=(e.clientY-r.top-r.height/2)/260;
     if(Math.abs(px)>1.4||Math.abs(py)>1.4)return;b.style.transform=`rotate(${rasgado?0:-3}deg) rotateY(${lim(px,-1,1)*9}deg) rotateX(${lim(-py,-1,1)*9}deg)`;img.style.transform=`translate(${px*-6}px,${py*-6}px)`});
   area.addEventListener('pointerleave',()=>{b.style.transform=`rotate(${rasgado?0:-3}deg)`;img.style.transform=''});
-  function rasga(){if(rasgado)return;rasgado=true;can.classList.add('cai');b.classList.add('rasgado');const r=can.getBoundingClientRect();brilhos(r.left,r.top+r.height/2,60,1.4);
+  function rasga(){if(rasgado)return;rasgado=true;can.style.setProperty('--t0',can.style.transform||'none');can.style.transform='';can.classList.add('cai');b.classList.add('rasgado');const r=can.getBoundingClientRect();brilhos(r.left,r.top+r.height/2,60,1.4);
     b.querySelector('.corpo').style.transform=`translateX(${can.offsetWidth/2}px)`;b.style.transform='rotate(0)';$('#dica-rasgar').textContent='rasgado · bom filme';}
   can.addEventListener('pointerdown',e=>{if(rasgado)return;ini=e.clientX;can.setPointerCapture(e.pointerId);can.style.transition='none'});
-  can.addEventListener('pointermove',e=>{if(ini===null||rasgado)return;dx=Math.max(0,e.clientX-ini);const res=dx*.45;can.style.transform=`translateX(${res}px) rotate(${Math.min(30,dx*.12)}deg)`;if(dx>150)rasga()});
-  const solta=()=>{if(ini===null)return;ini=null;if(!rasgado){if(dx<6)rasga();else{can.style.transition='transform .5s cubic-bezier(.2,1.6,.4,1)';can.style.transform=''}}dx=0};
+  can.addEventListener('pointermove',e=>{if(ini===null||rasgado)return;dx=Math.max(0,e.clientX-ini);const res=dx*.45;can.style.transform=`translateX(${res}px) rotate(${Math.min(30,dx*.12)}deg)`;can.style.setProperty('--puxa',Math.min(1,dx/150).toFixed(2));if(dx>150)rasga()});
+  const solta=()=>{if(ini===null)return;ini=null;if(!rasgado){if(dx<6)rasga();else{can.style.transition='transform .5s cubic-bezier(.2,1.6,.4,1),box-shadow .5s';can.style.transform='';can.style.setProperty('--puxa',0)}}dx=0};
   can.addEventListener('pointerup',solta);can.addEventListener('pointercancel',solta);
 })();
 
