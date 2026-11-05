@@ -383,7 +383,7 @@ footer h3{font-family:var(--magia);font-size:46px;font-weight:400;margin-bottom:
 .orbe .f{display:block;line-height:1.3;min-height:2.6em}
 .no b,.contador b,.numeros b{font-variant-numeric:lining-nums;font-feature-settings:"lnum" 1}
 html{font-variant-numeric:lining-nums}
-footer h3,footer .fonte,footer .credito{opacity:0;transform:translateY(26px);filter:blur(6px);transition:opacity 1.4s ease var(--atraso,0s),transform 1.6s cubic-bezier(.16,.84,.3,1) var(--atraso,0s),filter 1.4s ease var(--atraso,0s)}
+footer h3,footer .fonte,footer .creditos,footer .volta{opacity:0;transform:translateY(26px);filter:blur(6px);transition:opacity 1.4s ease var(--atraso,0s),transform 1.6s cubic-bezier(.16,.84,.3,1) var(--atraso,0s),filter 1.4s ease var(--atraso,0s)}
 footer .on{opacity:1!important;transform:none!important;filter:none!important}
 footer .fonte{position:relative;overflow:hidden;padding:4px 10px;border-radius:14px}
 footer .fonte:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(100deg,transparent 30%,#fff6d640 50%,transparent 70%);transform:translateX(-130%)}
@@ -394,6 +394,9 @@ footer .fonte.on a{animation:brilhaLink 1.6s ease calc(var(--atraso,0s) + .7s)}
 @keyframes brilhaLink{50%{text-shadow:0 0 14px #f8e7b0,0 0 26px #e8c36a;color:#fff6d6}}
 footer h3.on{animation:reluz 6s linear infinite,brilhaTitulo 3.5s ease-in-out 1.2s infinite}
 @keyframes brilhaTitulo{50%{filter:drop-shadow(0 0 14px #e8c36a99)}}
+footer .volta{text-align:center;margin:40px 0 10px}
+footer .volta .de-novo{display:inline-block;padding:12px 26px;border:1px solid #e8c36a66;border-radius:999px;background:#0d0f30aa;box-shadow:0 0 18px #e8c36a22;transition:box-shadow .4s,translate .4s}
+footer .volta .de-novo:hover{box-shadow:0 0 28px #e8c36a66;translate:0 -2px}
 </style>
 </head>
 <body class="magico">
@@ -823,7 +826,6 @@ footer h3.on{animation:reluz 6s linear infinite,brilhaTitulo 3.5s ease-in-out 1.
     <div class="texto-final" id="texto-final">
       <h2 class="dourado">E viveram felizes para sempre?</h2>
       <p>Na estreia, com certeza. Depois, cada um na sua tela.</p>
-      <a href="#abertura" class="de-novo" id="de-novo">↺ era uma vez, de novo</a>
     </div>
   </div>
 </section>
@@ -837,6 +839,7 @@ footer h3.on{animation:reluz 6s linear infinite,brilhaTitulo 3.5s ease-in-out 1.
   <p class="fonte"><b>Inflação</b>, <a href="https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-">índice de preços dos EUA do Federal Reserve de Minneapolis</a>, para levar todos os valores a dólares de 2025.</p>
   <p class="fonte">A foto de Walt Disney e as imagens das princesas pertencem à The Walt Disney Company e aparecem aqui só para fins acadêmicos, sem fins comerciais.</p>
   <div class="creditos">Gabriela Dinis Dorle · Métodos Estatísticos Aplicados às Ciências Sociais · A2 · 2026</div>
+  <p class="volta"><a href="#abertura" class="de-novo" id="de-novo">↺ era uma vez, de novo</a></p>
 </footer>
 
 <script>
@@ -962,7 +965,7 @@ function aoRolar(){
 addEventListener('scroll',()=>{if(!aoRolar._p){aoRolar._p=1;requestAnimationFrame(()=>{aoRolar._p=0;aoRolar()})}},{passive:true});
 addEventListener('resize',()=>aoRolar());
 $$('.sobe').forEach(el=>aoAparecer(el,e=>e.classList.add('on'),.2));
-$$('footer h3,footer .fonte,footer .credito').forEach((el,k)=>{el.style.setProperty('--atraso',(k*.12)+'s');aoAparecer(el,e=>{e.classList.add('on');if(e.tagName==='H3'&&!calmo){const r=e.getBoundingClientRect();brilhos(r.left+r.width/2,r.top+r.height/2,30,1.1)}},.15)});
+$$('footer h3,footer .fonte,footer .creditos,footer .volta').forEach((el,k)=>{el.style.setProperty('--atraso',(k*.12)+'s');aoAparecer(el,e=>{e.classList.add('on');if(e.tagName==='H3'&&!calmo){const r=e.getBoundingClientRect();brilhos(r.left+r.width/2,r.top+r.height/2,30,1.1)}},.15)});
 (function(){const tm=$('#texto-motivacao');tm.innerHTML=tm.textContent.trim().split(/\s+/).map(w=>`<span class="palavra">${w}</span>`).join(' ');tm._p=[...tm.querySelectorAll('.palavra')]})();
 $$('[data-conta]').forEach(b=>aoAparecer(b,()=>contaTexto(b,0,+b.dataset.conta,1800,+(b.dataset.dec||0),b.dataset.pre||'',b.dataset.pos||''),.5));
 $('#de-novo').addEventListener('click',e=>{e.preventDefault();brilhos(e.clientX,e.clientY,60);setTimeout(()=>scrollTo({top:0,behavior:calmo?'auto':'smooth'}),200)});
