@@ -202,9 +202,13 @@ svg text{font-family:var(--corpo)}
 @media (max-width:820px){
   .cena .palco{padding:2vh 12px;gap:1.6vh}
   .vidro{padding:12px 10px 8px;border-radius:22px}
-  .vidro svg text{font-size:24px}
-  .vidro svg .rotulo-fino{font-size:21px}
+  .vidro svg text{font-size:17px}
+  .vidro svg .rotulo-fino,.vidro svg .titulo-eixo{font-size:15px}
   .legenda-cena .q{font-size:17.5px}
+}
+@media (max-width:600px) and (orientation:portrait){
+  .vidro svg text{font-size:21px}
+  .vidro svg .rotulo-fino,.vidro svg .titulo-eixo{font-size:18px}
 }
 
 /* ===== 4. CARROSSEL DAS PRINCESAS ===== */
@@ -230,6 +234,7 @@ svg text{font-family:var(--corpo)}
 
 /* ===== 5. BASES ===== */
 #palco-bases{position:relative;width:min(980px,100%);height:min(62vh,560px)}
+@media (max-width:820px){#sujeiras{position:absolute;inset:0;overflow:hidden;pointer-events:none}}
 .bolhas-ariel{position:absolute;inset:0;overflow:hidden;pointer-events:none}
 .bolha{position:absolute;bottom:-30px;border-radius:50%;border:1px solid #bfefff88;background:radial-gradient(circle at 30% 30%,#ffffff55,#7fd3ff11 60%,transparent);animation:bolha linear infinite}
 @keyframes bolha{to{transform:translate(var(--bx),-75vh);opacity:0}}
@@ -318,7 +323,7 @@ svg text{font-family:var(--corpo)}
 @keyframes vaga{0%{transform:translate(0,0);opacity:.2}50%{opacity:1}100%{transform:translate(var(--vx),var(--vy));opacity:.3}}
 .fogo-fatuo{position:absolute;width:10px;height:16px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:radial-gradient(#d8f6ff,#5ab8ff 50%,transparent 70%);box-shadow:0 0 18px 6px #5ab8ff88;pointer-events:none;animation:fatuo ease-in-out infinite alternate}
 @keyframes fatuo{0%{transform:translate(0,0);opacity:.3}50%{opacity:1}100%{transform:translate(var(--vx),var(--vy));opacity:.4}}
-.onda-moana{position:absolute;left:0;right:0;bottom:0;height:120px;pointer-events:none;opacity:.45;overflow:visible;-webkit-mask-image:linear-gradient(90deg,transparent,#000 20%,#000 80%,transparent);mask-image:linear-gradient(90deg,transparent,#000 20%,#000 80%,transparent)}
+.onda-moana{position:absolute;left:0;right:0;bottom:0;width:100%;height:120px;pointer-events:none;opacity:.45;overflow:visible;-webkit-mask-image:linear-gradient(90deg,transparent,#000 20%,#000 80%,transparent);mask-image:linear-gradient(90deg,transparent,#000 20%,#000 80%,transparent)}
 .lanterna{position:absolute;bottom:-60px;width:16px;height:22px;border-radius:4px 4px 6px 6px;background:linear-gradient(#ffd27a,#f29b38);box-shadow:0 0 18px 8px #f5a94255,0 0 40px 18px #f5a94222;opacity:.9;animation:lanterna linear infinite;pointer-events:none}
 @keyframes lanterna{to{transform:translate(var(--lx),-120vh)}}
 
@@ -899,6 +904,9 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const calmo = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const fino = matchMedia('(pointer:fine)').matches;
 function S(tag,at={},pai){const e=document.createElementNS(NS,tag);for(const k in at)e.setAttribute(k,at[k]);if(pai)pai.appendChild(e);return e}
+/* celular e tablet em pé: gráficos mais estreitos e mais altos */
+const EM_PE=innerHeight>innerWidth&&innerWidth<=1024,ESTREITO=EM_PE&&innerWidth<=600,LARG=ESTREITO?540:EM_PE?760:860,ALTO=h=>EM_PE?Math.round(h*(ESTREITO?1.3:1.55)):h;
+function tamanho(svg,W,H){svg.setAttribute('viewBox',`0 0 ${W} ${H}`)}
 function escala(d0,d1,r0,r1){const f=v=>r0+(v-d0)/(d1-d0)*(r1-r0);f.r=[r0,r1];return f}
 const fmt=(v,dec=0)=>v.toLocaleString('pt-BR',{minimumFractionDigits:dec,maximumFractionDigits:dec});
 const ease=t=>1-Math.pow(1-t,3), eio=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
@@ -1142,7 +1150,7 @@ CENAS.baile=function(i){
 
 /* ================= GIGANTE ================= */
 (function(){
-  const svg=$('#g-gigante');const W=860,H=360,m={l:30,r:30,t:40,b:46};padroes(svg);
+  const svg=$('#g-gigante');const W=LARG,H=ALTO(360),m={l:30,r:30,t:40,b:46};tamanho(svg,W,H);padroes(svg);
   const x=escala(0,4400,m.l,W-m.r);const yb=210;
   const g=S('g',{},svg);eixoX(g,x,H-m.b,[0,1000,2000,3000,4000],v=>v===0?'0':fmt(v/1000,0)+' bi');
   const R=13;const ord=[...DENTRO].sort((a,b)=>a.mund_aj-b.mund_aj);const ocup=[];
@@ -1170,7 +1178,7 @@ CENAS.baile=function(i){
 
 /* ================= H1 ================= */
 (function(){
-  const svg=$('#g-h1');const W=860,H=360,m={l:70,r:20,t:34,b:50};padroes(svg);
+  const svg=$('#g-h1');const W=LARG,H=ALTO(360),m={l:70,r:20,t:34,b:50};tamanho(svg,W,H);padroes(svg);
   const pares=[[1,13],[4,14],[5,15]].map(([a,b])=>[FILMES[a],FILMES[b]]);
   const modos=[{k:'mund',t:'Bilheteria mundial no valor da época',ey:'US$ milhões da época ↑',max:1800,un:v=>'US$ '+fmt(v,0)+' mi',tk:[0,500,1000,1500]},
                {k:'mund_aj',t:'Bilheteria mundial com a inflação corrigida',ey:'US$ milhões de 2025 ↑',max:1800,un:v=>'US$ '+fmt(v,0)+' mi',tk:[0,500,1000,1500]},
@@ -1192,9 +1200,9 @@ CENAS.baile=function(i){
 
 /* ================= H2 ================= */
 (function(){
-  const svg=$('#g-h2');const W=860,H=360,m={l:70,r:40,t:30,b:50};padroes(svg);
+  const svg=$('#g-h2');const W=LARG,H=ALTO(360),m={l:70,r:40,t:30,b:50};tamanho(svg,W,H);padroes(svg);
   const x=escala(20,70,m.l,W-m.r),y=escala(.3,1.8,H-m.b,m.t);const g=S('g',{},svg);
-  eixoY(g,y,m.l-6,[.5,1,1.5],v=>fmt(v,1),W-m.l-m.r,'remake ÷ original ↑');eixoX(g,x,H-m.b,[20,30,40,50,60,70],v=>v+' anos');
+  eixoY(g,y,m.l-6,[.5,1,1.5],v=>fmt(v,1),W-m.l-m.r,'remake ÷ original ↑');eixoX(g,x,H-m.b,ESTREITO?[20,40,60]:[20,30,40,50,60,70],v=>v+' anos');
   const ref=S('g',{opacity:0,style:'transition:opacity .6s'},g);
   S('line',{x1:m.l,x2:W-m.r,y1:y(1),y2:y(1),stroke:'#f8e7b0','stroke-width':1.5,'stroke-dasharray':'6 6'},ref);
   S('text',{x:W-m.r,y:y(1)-8,'text-anchor':'end',class:'rotulo-ouro'},ref).textContent='remake = original';
@@ -1202,7 +1210,7 @@ CENAS.baile=function(i){
   S('text',{x:W-m.r,y:y(1)+54,'text-anchor':'end',class:'rotulo-fino'},ref).textContent='▼ remake arrecadou menos';
   const dados=[{c:'Cinderela',n:'Cinderela',i:65,r:.57},{c:'Bela',n:'A Bela e a Fera',i:26,r:1.56},{c:'Jasmine',n:'Aladdin',i:27,r:1.14}];
   const tend=S('line',{x1:x(24),x2:x(24),y1:y(1.66),y2:y(1.66),stroke:'#f4a6c6','stroke-width':2.5,'stroke-linecap':'round',opacity:.8,filter:`url(#luz-${svg.id})`},g);
-  const tendT=S('text',{x:x(46),y:y(1.25),class:'rotulo',opacity:0,style:'transition:opacity .6s'},g);tendT.textContent='Pearson = −0,92';
+  const tendT=S('text',{x:ESTREITO?x(21):x(46),y:ESTREITO?y(.45):y(1.25),class:'rotulo',opacity:0,style:'transition:opacity .6s'},g);tendT.textContent='Pearson = −0,92';
   const pts=dados.map(d=>{const c=S('circle',{cx:x(d.i),cy:y(d.r),r:0,fill:COR[d.c],stroke:'#fff','stroke-width':2.5,filter:`url(#luz-${svg.id})`},g);
     const t=S('text',{x:x(d.i)+(d.i>50?-24:24),y:y(d.r)+5,'text-anchor':d.i>50?'end':'start',class:'rotulo'},g);t.textContent=`${d.n} · ${fmt(d.r,2)}`;
     comDica(c,`<b>${d.n}</b><br>${d.i} anos de espera<br>o remake fez ${fmt(d.r,2)} vez o original`);return {c,d}});
@@ -1217,8 +1225,8 @@ CENAS.baile=function(i){
 
 /* ================= H3 ================= */
 (function(){
-  const svg=$('#g-h3');const W=860,H=400,m={l:200,r:40,t:10,b:36};padroes(svg);
-  const lista=[...DENTRO].sort((a,b)=>a.ano-b.ano);const x=escala(0,2250,m.l,W-m.r);const passo=(H-m.t-m.b)/lista.length;const g=S('g',{},svg);
+  const svg=$('#g-h3');const W=LARG,H=ALTO(400),m={l:ESTREITO?222:200,r:EM_PE?10:40,t:10,b:36};tamanho(svg,W,H);padroes(svg);
+  const lista=[...DENTRO].sort((a,b)=>a.ano-b.ano);const x=escala(0,EM_PE?2650:2250,m.l,W-m.r);const passo=(H-m.t-m.b)/lista.length;const g=S('g',{},svg);
   const gB=S('g',{style:'transition:opacity .6s'},g);eixoX(gB,x,H-m.b,[0,500,1000,1500],v=>fmt(v));S('line',{x1:m.l,x2:m.l,y1:m.t,y2:H-m.b,class:'linha-eixo'},S('g',{class:'eixo'},gB));
   const linhas=lista.map((f,k)=>{const yy=m.t+k*passo+passo*.18,h=passo*.64;
     S('text',{x:m.l-10,y:yy+h/2+4,'text-anchor':'end',class:'rotulo-fino'},gB).textContent=`${f.t.replace(' e os Sete Anões','')} (${f.ano})`;
@@ -1236,7 +1244,7 @@ CENAS.baile=function(i){
   CENAS.h3=function(i){const pp=i>=3;gB.style.opacity=pp?0:1;gB.style.pointerEvents=pp?'none':'';gP.setAttribute('opacity',pp?1:0);gP.style.pointerEvents=pp?'':'none';
     $('#t-h3').textContent=pp?'Bilheteria nos EUA por período, estreia e reprises':i>=1?'Bilheteria nos EUA, estreia e reprises':'Bilheteria nos EUA, só a estreia';
     linhas.forEach((L,k)=>{const f=L.f;const we=x(f.est)-m.l,wr=i>=1?x(f.est+f.repa)-x(f.est):0;anima(L.e,{width:we},800,i===0?k*40:0);anima(L.r,{x:m.l+we,width:wr},800);
-      anima(L.t,{x:m.l+we+wr+6},800);L.t.textContent=fmt(i>=1?f.est+f.repa:f.est,0)+(i>=1&&f.repa>1?`  · ${fmt(f.repa/f.dom*100,0)}% reprises`:'');
+      anima(L.t,{x:m.l+we+wr+6},800);L.t.textContent=fmt(i>=1?f.est+f.repa:f.est,0)+(i>=1&&f.repa>1?(EM_PE?` · ${fmt(f.repa/f.dom*100,0)}%`:`  · ${fmt(f.repa/f.dom*100,0)}% reprises`):'');
       const cin=f.c==='Cinderela'&&f.v==='a';L.e.classList.toggle('apagado',i===2&&!cin);L.r.classList.toggle('apagado',i===2&&!cin);L.r.classList.toggle('destaque',i===2&&cin)})};
 })();
 
@@ -1256,7 +1264,7 @@ CENAS.baile=function(i){
 
 /* ================= H4 ================= */
 (function(){
-  const svg=$('#g-h4');const W=860,H=360,m={l:70,r:30,t:30,b:46};padroes(svg);
+  const svg=$('#g-h4');const W=LARG,H=ALTO(360),m={l:70,r:30,t:30,b:46};tamanho(svg,W,H);padroes(svg);
   const x=escala(6.5,8.2,m.l,W-m.r);let y=escala(0,4400,H-m.b,m.t);const g=S('g',{},svg);eixoX(g,x,H-m.b,[6.5,7,7.5,8],v=>fmt(v,1));const gy=S('g',{},g);
   S('text',{x:W-m.r,y:H-6,'text-anchor':'end',class:'rotulo-fino'},g).textContent='nota no IMDb →';S('text',{x:m.l-60,y:m.t-12,class:'rotulo-fino'},g).textContent='US$ milhões de 2025 ↑';
   const reta=S('line',{x1:x(6.6),x2:x(6.6),y1:H-m.b,y2:H-m.b,stroke:'#f4a6c6','stroke-width':2.5,'stroke-dasharray':'8 6',opacity:0,filter:`url(#luz-${svg.id})`},g);
@@ -1264,7 +1272,7 @@ CENAS.baile=function(i){
   const pts=DENTRO.map(f=>{const c=S('circle',{cx:x(f.nota),cy:H-m.b,r:12,fill:preenche(svg,f),stroke:'#0d0f30','stroke-width':2},g);
     const lado=f.c==='Branca de Neve'?[16,4,'start']:f.c==='Pocahontas'?[0,32,'middle']:(f.c==='Bela'&&f.v==='a')?[-18,-16,'end']:[0,0,'start'];
     const t=S('text',{x:x(f.nota)+lado[0],y:H-m.b,'text-anchor':lado[2],class:'rotulo-fino',opacity:0},g);t._dy=lado[1];
-    t.textContent=f.c==='Branca de Neve'?'Branca de Neve':f.c==='Pocahontas'?'Pocahontas, nota 6,7':(f.c==='Bela'&&f.v==='a')?'A Bela e a Fera e Aladdin, nota 8,0':'';
+    t.textContent=f.c==='Branca de Neve'?'Branca de Neve':f.c==='Pocahontas'?(ESTREITO?'Pocahontas, 6,7':'Pocahontas, nota 6,7'):(f.c==='Bela'&&f.v==='a')?(ESTREITO?'nota 8,0':'A Bela e a Fera e Aladdin, nota 8,0'):'';
     comDica(c,`<b>${nomeFilme(f)}</b><br>nota ${fmt(f.nota,1)}<br>US$ ${fmt(f.mund_aj,1)} mi no mundo`);return {c,t,f}});
   function mmq(l){const n=l.length,mx=l.reduce((s,f)=>s+f.nota,0)/n,my=l.reduce((s,f)=>s+f.mund_aj,0)/n;let a=0,b=0;l.forEach(f=>{a+=(f.nota-mx)*(f.mund_aj-my);b+=(f.nota-mx)**2});const k=a/b;return [k,my-k*mx]}
   let semBN=false,pa=0,primeira=true;
@@ -1284,7 +1292,7 @@ CENAS.baile=function(i){
 
 /* ================= H5 ================= */
 (function(){
-  const svg=$('#g-h5');const W=860,H=360,m={l:62,r:30,t:30,b:46};padroes(svg);
+  const svg=$('#g-h5');const W=LARG,H=ALTO(360),m={l:62,r:30,t:30,b:46};tamanho(svg,W,H);padroes(svg);
   const x=escala(1932,2023,m.l,W-m.r),y=escala(60,140,H-m.b,m.t);const g=S('g',{},svg);
   eixoY(g,y,m.l-6,[60,80,100,120,140],v=>v+' min',W-m.l-m.r,'duração ↑');eixoX(g,x,H-m.b,[1940,1960,1980,2000,2020],v=>v);
   const an=DENTRO.filter(f=>f.v==='a').sort((a,b)=>a.ano-b.ano),re=DENTRO.filter(f=>f.v==='r');
@@ -1298,7 +1306,8 @@ CENAS.baile=function(i){
     const c=S('circle',{cx:x2,cy:y2,r:0,fill:preenche(svg,f),stroke:'#fff','stroke-width':2},gr);comDica(c,`<b>${nomeFilme(f)}</b><br>${f.dur} minutos<br>+${f.dur-o.dur} min que a animação`);
     const pos={2015:[-14,-12,'end'],2017:[0,-20,'middle'],2019:[0,32,'middle']}[f.ano];S('text',{x:x2+pos[0],y:y2+pos[1],'text-anchor':pos[2],class:'rotulo-ouro'},gr).textContent=`+${f.dur-o.dur} min`;pr.push(c)});
   const gt=S('g',{opacity:0,style:'transition:opacity .8s'},g);
-  S('text',{x:m.l+10,y:m.t+8,class:'rotulo-ouro'},gt).textContent='duração ↑ 0,79   ·   orçamento ↑ 0,71   ·   retorno ↓ −0,75';
+  if(ESTREITO){S('text',{x:m.l+10,y:m.t+8,class:'rotulo-ouro'},gt).textContent='duração ↑ 0,79 · orçamento ↑ 0,71';S('text',{x:m.l+10,y:m.t+32,class:'rotulo-ouro'},gt).textContent='retorno ↓ −0,75'}
+  else S('text',{x:m.l+10,y:m.t+8,class:'rotulo-ouro'},gt).textContent='duração ↑ 0,79   ·   orçamento ↑ 0,71   ·   retorno ↓ −0,75';
   CENAS.h5=function(i){linha.style.strokeDashoffset=0;pa.forEach((c,k)=>anima(c,{r:9},500,i===0?k*170:0));gr.setAttribute('opacity',i>=1?1:0);pr.forEach(c=>anima(c,{r:i>=1?11:0},600,300));gt.setAttribute('opacity',i>=2?1:0)};
   // Tiana: vaga-lumes
   const vg=$('#vagalumes');for(let k=0;k<26;k++){const v=document.createElement('div');v.className='vagalume';v.style.left=Math.random()*100+'%';v.style.top=Math.random()*100+'%';
@@ -1307,14 +1316,15 @@ CENAS.baile=function(i){
 
 /* ================= FORA DO CINEMA ================= */
 (function(){
-  const svg=$('#g-telas');const W=860,H=380,m={l:60,r:30,t:70,b:46};padroes(svg);
+  const svg=$('#g-telas');const W=LARG,H=ALTO(380),m={l:60,r:30,t:EM_PE?100:70,b:46};tamanho(svg,W,H);padroes(svg);
   const x=escala(1932,2024,m.l,W-m.r);const g=S('g',{},svg);eixoX(g,x,H-m.b,[1940,1960,1980,2000,2020],v=>v);const gy=S('g',{},g);
-  const lista=[...DENTRO].sort((a,b)=>a.ano-b.ano);const bw=16;let modo=0;
+  const lista=[...DENTRO].sort((a,b)=>a.ano-b.ano);const bw=ESTREITO?11:16;let modo=0;
   const barras=lista.map(f=>{const r=S('rect',{x:x(f.ano)-bw/2,y:H-m.b,width:bw,height:0,rx:8,fill:preenche(svg,f)},g);const t=S('text',{x:x(f.ano),y:H-m.b-6,'text-anchor':'middle',class:'rotulo'},g);
     comDica(r,()=>`<b>${nomeFilme(f)}</b><br>${modo?fmt(f.votos/1000,0)+' mil votos no IMDb':fmt(f.repa/f.dom*100,1)+'% da bilheteria nos EUA veio das reprises'}`);return {r,t,f}});
-  const marcos=[[1984,'fitas de vídeo',1,0],[1997,'DVD',1,1],[2019,'Disney+',2,0],[2020,'Mulan direto no streaming',2,2]];
-  const gm=marcos.map(([a,t,p,lin])=>{const gg=S('g',{opacity:0,style:'transition:opacity .6s'},g);S('line',{x1:x(a),x2:x(a),y1:m.t-56+lin*16,y2:H-m.b,stroke:'#f8e7b0','stroke-width':1,'stroke-dasharray':'3 4'},gg);
-    S('text',{x:x(a)+(a>2015?-4:4),y:m.t-60+lin*16,'text-anchor':a>2015?'end':'start',class:'rotulo-ouro'},gg).textContent=a+' · '+t;gg._p=p;return gg});
+  const marcos=EM_PE?[[1984,'vídeo',1,0],[1997,'DVD',1,1],[2019,'Disney+',2,2],[2020,'Mulan no streaming',2,3]]:[[1984,'fitas de vídeo',1,0],[1997,'DVD',1,1],[2019,'Disney+',2,0],[2020,'Mulan direto no streaming',2,2]];
+  const lh=EM_PE?22:16;
+  const gm=marcos.map(([a,t,p,lin])=>{const gg=S('g',{opacity:0,style:'transition:opacity .6s'},g);S('line',{x1:x(a),x2:x(a),y1:m.t-(EM_PE?84:56)+lin*lh,y2:H-m.b,stroke:'#f8e7b0','stroke-width':1,'stroke-dasharray':'3 4'},gg);
+    S('text',{x:x(a)+(a>2015?-4:4),y:m.t-(EM_PE?88:60)+lin*lh,'text-anchor':a>2015?'end':'start',class:'rotulo-ouro'},gg).textContent=a+' · '+t;gg._p=p;return gg});
   CENAS.telas=function(i){modo=i>=3?1:0;const max=modo?600000:80;const y=escala(0,max,H-m.b,m.t);gy.innerHTML='';
     eixoY(gy,y,m.l-6,modo?[0,200000,400000,600000]:[0,25,50,75],v=>modo?fmt(v/1000)+' mil':v+'%',W-m.l-m.r,modo?'votos ↑':'reprises ↑');
     $('#t-telas').textContent=modo?'Votos de quem avaliou no IMDb':'Quanto da bilheteria nos EUA veio das reprises';$('#n-telas').textContent=modo?'cada voto é alguém que assistiu e quis dar a sua nota':'% do total de cada filme';
