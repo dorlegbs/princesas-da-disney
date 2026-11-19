@@ -1150,21 +1150,20 @@ CENAS.baile=function(i){
 
 /* ================= GIGANTE ================= */
 (function(){
-  const svg=$('#g-gigante');const W=LARG,H=ALTO(360),m={l:70,r:30,t:40,b:46};tamanho(svg,W,H);padroes(svg);
+  const svg=$('#g-gigante');const W=LARG,H=ALTO(360),m={l:30,r:30,t:40,b:46};tamanho(svg,W,H);padroes(svg);
   const x=escala(0,4400,m.l,W-m.r);const yb=210;
   const g=S('g',{},svg);eixoX(g,x,H-m.b,[0,1000,2000,3000,4000],v=>v===0?'0':fmt(v/1000,0)+' bi');
   const R=13;const ord=[...DENTRO].sort((a,b)=>a.mund_aj-b.mund_aj);const ocup=[];
-  const yb0=H-m.b-R-6,passo=2*R+2;ord.forEach(f=>{const px=x(f.mund_aj);let nivel=0;while(ocup.some(o=>o.n===nivel&&Math.abs(o.x-px)<passo))nivel++;ocup.push({x:px,n:nivel});f._gy=yb0-nivel*passo});
-  const maxN=Math.max(...ocup.map(o=>o.n))+1,ey=v=>yb0-(v-1)*passo;ey.r=[H-m.b,ey(maxN)-R-4];eixoY(g,ey,m.l-6,Array.from({length:maxN},(_,k)=>k+1),v=>v,0,'filmes ↑');
+  ord.forEach(f=>{const px=x(f.mund_aj);let nivel=0;while(ocup.some(o=>o.n===nivel&&Math.abs(o.x-px)<2*R+2))nivel=nivel<=0?-nivel+1:-nivel;ocup.push({x:px,n:nivel});f._gy=yb-nivel*(2*R+2)});
   const linhas={};
   [['media','#f4a6c6','média'],['mediana','#f8e7b0','mediana']].forEach(([k,c,n],j)=>{const gl=S('g',{opacity:0,style:'transition:opacity .6s'},g);
-    const l=S('line',{x1:x(0),x2:x(0),y1:ey(maxN)-R-28,y2:H-m.b,stroke:c,'stroke-width':2,'stroke-dasharray':k==='media'?'7 5':'',filter:`url(#luz-${svg.id})`},gl);
-    const t=S('text',{x:x(0),y:j?ey(maxN)-R-34:ey(maxN)-R-52,'text-anchor':'middle',class:'rotulo',fill:c},gl);t.style.fill=c;linhas[k]={gl,l,t,n}});
+    const l=S('line',{x1:x(0),x2:x(0),y1:60,y2:H-m.b,stroke:c,'stroke-width':2,'stroke-dasharray':k==='media'?'7 5':'',filter:`url(#luz-${svg.id})`},gl);
+    const t=S('text',{x:x(0),y:j?52:36,'text-anchor':'middle',class:'rotulo',fill:c},gl);t.style.fill=c;linhas[k]={gl,l,t,n}});
   const pts=ord.map(f=>{const c=S('circle',{cx:x(f.mund_aj),cy:-40,r:R,fill:preenche(svg,f),stroke:'#0d0f30','stroke-width':2},g);
     comDica(c,`<b>${nomeFilme(f)}</b><br>US$ ${fmt(f.mund_aj,1)} milhões`);c._f=f;return c});
   const bnRot=S('g',{opacity:0,style:'transition:opacity .6s'},g);const bn=ord.find(f=>f.c==='Branca de Neve');
-  S('text',{x:x(bn.mund_aj)-8,y:bn._gy-26,'text-anchor':'end',class:'rotulo'},bnRot).textContent=ESTREITO?'Branca de Neve':'Branca de Neve · US$ 4,1 bi';
-  S('text',{x:x(bn.mund_aj)-8,y:bn._gy-10,'text-anchor':'end',class:'rotulo-fino'},bnRot).textContent=ESTREITO?'US$ 4,1 bi · atípico':'valor atípico';
+  S('text',{x:x(bn.mund_aj)-8,y:bn._gy-26,'text-anchor':'end',class:'rotulo'},bnRot).textContent='Branca de Neve · US$ 4,1 bi';
+  S('text',{x:x(bn.mund_aj)-8,y:bn._gy-10,'text-anchor':'end',class:'rotulo-fino'},bnRot).textContent='valor atípico';
   $('#leg-gigante').innerHTML=[...new Set(DENTRO.map(f=>f.c))].map(c=>`<span><i style="background:${COR[c]}"></i>${c}</span>`).join('');
   // Jasmine: o tapete mágico atravessa a cena
   const tap=document.createElement('div');tap.className='tapete';tap.innerHTML=`<svg viewBox="0 0 90 40"><path d="M4 22 Q24 10 45 22 T86 22 L82 32 Q62 22 45 32 T8 32 Z" fill="#7b3f61" stroke="#e8c36a" stroke-width="1.5"/><path d="M12 25 Q30 17 45 26 T78 26" stroke="#e8c36a" stroke-width="1" fill="none" stroke-dasharray="2 3"/><path d="M4 22 l-3 3 M4 26 l-3 3 M86 22 l3 3 M86 26 l3 3" stroke="#e8c36a"/></svg>`;$('#gigante').appendChild(tap);
