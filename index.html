@@ -190,6 +190,8 @@ a{color:var(--ouro2)}
 svg text{font-family:var(--corpo)}
 .eixo text{font-size:12px;fill:#a9a4cc}
 .eixo line{stroke:#ffffff1f}
+.eixo .linha-eixo{stroke:#cfc9ea;stroke-opacity:.8;stroke-width:1.5;stroke-linecap:round}
+.eixo .titulo-eixo{font-size:12px;fill:#cfc9ea}
 .rotulo{font-size:12.5px;font-weight:800;fill:#fff}
 .rotulo-fino{font-size:12px;fill:#cfc9ea}
 .rotulo-ouro{font-size:12.5px;font-weight:800;fill:#f8e7b0}
@@ -921,8 +923,9 @@ const dica=$('#dica');
 function comDica(el,html){el.classList.add('marca');el.addEventListener('pointerenter',()=>{dica.innerHTML=typeof html==='function'?html():html;dica.style.opacity=1;luz.classList.add('grande')});
   el.addEventListener('pointermove',e=>{const x=Math.min(e.clientX+18,innerWidth-275);dica.style.left=x+'px';dica.style.top=(e.clientY+18)+'px'});
   el.addEventListener('pointerleave',()=>{dica.style.opacity=0;luz.classList.remove('grande')})}
-function eixoX(g,esc,y,ticks,rot=v=>fmt(v)){const e=S('g',{class:'eixo'},g);S('line',{x1:esc.r[0],x2:esc.r[1],y1:y,y2:y},e);ticks.forEach(t=>{S('text',{x:esc(t),y:y+20,'text-anchor':'middle'},e).textContent=rot(t)});return e}
-function eixoY(g,esc,x,ticks,rot=v=>fmt(v),largura=0){const e=S('g',{class:'eixo'},g);ticks.forEach(t=>{if(largura)S('line',{x1:x,x2:x+largura,y1:esc(t),y2:esc(t),'stroke-dasharray':'2 5'},e);S('text',{x:x-8,y:esc(t)+4,'text-anchor':'end'},e).textContent=rot(t)});return e}
+function eixoX(g,esc,y,ticks,rot=v=>fmt(v)){const e=S('g',{class:'eixo'},g);S('line',{x1:esc.r[0],x2:esc.r[1],y1:y,y2:y,class:'linha-eixo'},e);ticks.forEach(t=>{S('line',{x1:esc(t),x2:esc(t),y1:y,y2:y+5,class:'linha-eixo'},e);S('text',{x:esc(t),y:y+20,'text-anchor':'middle'},e).textContent=rot(t)});return e}
+function eixoY(g,esc,x,ticks,rot=v=>fmt(v),largura=0,titulo=''){const e=S('g',{class:'eixo'},g);ticks.forEach(t=>{if(largura)S('line',{x1:x,x2:x+largura,y1:esc(t),y2:esc(t),'stroke-dasharray':'2 5'},e);S('line',{x1:x-5,x2:x,y1:esc(t),y2:esc(t),class:'linha-eixo'},e);S('text',{x:x-10,y:esc(t)+4,'text-anchor':'end'},e).textContent=rot(t)});
+  S('line',{x1:x,x2:x,y1:esc.r[0],y2:esc.r[1],class:'linha-eixo'},e);if(titulo)S('text',{x:Math.max(4,x-54),y:esc.r[1]-12,class:'titulo-eixo'},e).textContent=titulo;return e}
 function aoAparecer(el,fn,limiar=.3){const o=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){fn(e.target);o.unobserve(e.target)}}),{threshold:limiar});o.observe(el)}
 function progresso(el){const r=el.getBoundingClientRect();const total=el.offsetHeight-innerHeight;return lim(-r.top/total)}
 const _vis=new WeakMap(),_ioVis=new IntersectionObserver(es=>es.forEach(e=>_vis.set(e.target,e.isIntersecting)));
@@ -1169,10 +1172,10 @@ CENAS.baile=function(i){
 (function(){
   const svg=$('#g-h1');const W=860,H=360,m={l:70,r:20,t:34,b:50};padroes(svg);
   const pares=[[1,13],[4,14],[5,15]].map(([a,b])=>[FILMES[a],FILMES[b]]);
-  const modos=[{k:'mund',t:'Bilheteria mundial no valor da época',max:1800,un:v=>'US$ '+fmt(v,0)+' mi',tk:[0,500,1000,1500]},
-               {k:'mund_aj',t:'Bilheteria mundial com a inflação corrigida',max:1800,un:v=>'US$ '+fmt(v,0)+' mi',tk:[0,500,1000,1500]},
-               {k:'orc_aj',t:'Orçamento com a inflação corrigida',max:1800,un:v=>'US$ '+fmt(v,0)+' mi',tk:[0,500,1000,1500]},
-               {k:'ret',t:'Retorno, a bilheteria mundial dividida pelo orçamento',max:36,un:v=>fmt(v,1),tk:[0,10,20,30]}];
+  const modos=[{k:'mund',t:'Bilheteria mundial no valor da época',ey:'US$ milhões da época ↑',max:1800,un:v=>'US$ '+fmt(v,0)+' mi',tk:[0,500,1000,1500]},
+               {k:'mund_aj',t:'Bilheteria mundial com a inflação corrigida',ey:'US$ milhões de 2025 ↑',max:1800,un:v=>'US$ '+fmt(v,0)+' mi',tk:[0,500,1000,1500]},
+               {k:'orc_aj',t:'Orçamento com a inflação corrigida',ey:'US$ milhões de 2025 ↑',max:1800,un:v=>'US$ '+fmt(v,0)+' mi',tk:[0,500,1000,1500]},
+               {k:'ret',t:'Retorno, a bilheteria mundial dividida pelo orçamento',ey:'vezes o orçamento ↑',max:36,un:v=>fmt(v,1),tk:[0,10,20,30]}];
   const g=S('g',{},svg);const gEixo=S('g',{},g);const base=H-m.b;const lg=(W-m.l-m.r)/3;const bw=lg*.3;const barras=[];let atual=0;
   pares.forEach((par,k)=>{const cx=m.l+lg*k+lg/2;
     S('text',{x:cx,y:base+22,'text-anchor':'middle',class:'rotulo'},g).textContent=par[0].c==='Jasmine'?'Aladdin':par[0].t;
@@ -1180,7 +1183,7 @@ CENAS.baile=function(i){
     par.forEach((f,j)=>{const xx=cx+(j?6:-6-bw);const r=S('rect',{x:xx,y:base,width:bw,height:0,rx:8,fill:preenche(svg,f)},g);
       const t=S('text',{x:xx+bw/2,y:base-6,'text-anchor':'middle',class:'rotulo'},g);const tipo=S('text',{x:xx+bw/2,y:base-24,'text-anchor':'middle',class:'rotulo-fino',opacity:0},g);
       comDica(r,()=>`<b>${nomeFilme(f)}</b><br>${modos[atual].t}<br>${modos[atual].un(f[modos[atual].k])}`);barras.push({r,t,tipo,f})})});
-  function desenha(mi){atual=mi;const M=modos[mi];const y=escala(0,M.max,base,m.t);gEixo.innerHTML='';eixoY(gEixo,y,m.l-6,M.tk,v=>fmt(v),W-m.l-m.r);
+  function desenha(mi){atual=mi;const M=modos[mi];const y=escala(0,M.max,base,m.t);gEixo.innerHTML='';eixoY(gEixo,y,m.l-6,M.tk,v=>fmt(v),W-m.l-m.r,M.ey);
     barras.forEach(b=>{const v=b.f[M.k];anima(b.r,{y:y(v),height:base-y(v)},900);anima(b.t,{y:y(v)-6},900);anima(b.tipo,{y:y(v)-22},900);contaTexto(b.t,0,v,900,mi===3?1:0);
       b.r.classList.toggle('destaque',(mi===1||mi===3)&&b.f.ano===1950)});
     $('#t-h1').textContent=M.t;$$('#alt-h1 button').forEach(b=>b.classList.toggle('on',+b.dataset.m===mi))}
@@ -1191,7 +1194,7 @@ CENAS.baile=function(i){
 (function(){
   const svg=$('#g-h2');const W=860,H=360,m={l:70,r:40,t:30,b:50};padroes(svg);
   const x=escala(20,70,m.l,W-m.r),y=escala(.3,1.8,H-m.b,m.t);const g=S('g',{},svg);
-  eixoY(g,y,m.l-6,[.5,1,1.5],v=>fmt(v,1),W-m.l-m.r);eixoX(g,x,H-m.b,[20,30,40,50,60,70],v=>v+' anos');
+  eixoY(g,y,m.l-6,[.5,1,1.5],v=>fmt(v,1),W-m.l-m.r,'remake ÷ original ↑');eixoX(g,x,H-m.b,[20,30,40,50,60,70],v=>v+' anos');
   const ref=S('g',{opacity:0,style:'transition:opacity .6s'},g);
   S('line',{x1:m.l,x2:W-m.r,y1:y(1),y2:y(1),stroke:'#f8e7b0','stroke-width':1.5,'stroke-dasharray':'6 6'},ref);
   S('text',{x:W-m.r,y:y(1)-8,'text-anchor':'end',class:'rotulo-ouro'},ref).textContent='remake = original';
@@ -1216,14 +1219,14 @@ CENAS.baile=function(i){
 (function(){
   const svg=$('#g-h3');const W=860,H=400,m={l:200,r:40,t:10,b:36};padroes(svg);
   const lista=[...DENTRO].sort((a,b)=>a.ano-b.ano);const x=escala(0,2250,m.l,W-m.r);const passo=(H-m.t-m.b)/lista.length;const g=S('g',{},svg);
-  const gB=S('g',{style:'transition:opacity .6s'},g);eixoX(gB,x,H-m.b,[0,500,1000,1500],v=>fmt(v));
+  const gB=S('g',{style:'transition:opacity .6s'},g);eixoX(gB,x,H-m.b,[0,500,1000,1500],v=>fmt(v));S('line',{x1:m.l,x2:m.l,y1:m.t,y2:H-m.b,class:'linha-eixo'},S('g',{class:'eixo'},gB));
   const linhas=lista.map((f,k)=>{const yy=m.t+k*passo+passo*.18,h=passo*.64;
     S('text',{x:m.l-10,y:yy+h/2+4,'text-anchor':'end',class:'rotulo-fino'},gB).textContent=`${f.t.replace(' e os Sete Anões','')} (${f.ano})`;
     const e=S('rect',{x:m.l,y:yy,width:0,height:h,rx:h/2,fill:preenche(svg,f)},gB);
     const r=S('rect',{x:m.l,y:yy,width:0,height:h,rx:h/2,fill:`url(#lst-${svg.id}-ouro)`,filter:`url(#luz-${svg.id})`},gB);
     const t=S('text',{x:m.l+6,y:yy+h/2+4,class:'rotulo'},gB);
     comDica(e,`<b>${nomeFilme(f)}</b><br>estreia US$ ${fmt(f.est,1)} mi`);comDica(r,`<b>${nomeFilme(f)}</b><br>reprises US$ ${fmt(f.repa,1)} mi (${f.rep} voltas)<br>${fmt(f.repa/f.dom*100,1)}% do total nos EUA`);return {f,e,r,t}});
-  const gP=S('g',{opacity:0,style:'transition:opacity .6s'},g);const xp=escala(0,1900,m.l-60,W-m.r),pP=(H-m.t-m.b)/4;eixoX(gP,xp,H-m.b,[0,500,1000,1500],v=>fmt(v));
+  const gP=S('g',{opacity:0,style:'transition:opacity .6s'},g);const xp=escala(0,1900,m.l-60,W-m.r),pP=(H-m.t-m.b)/4;eixoX(gP,xp,H-m.b,[0,500,1000,1500],v=>fmt(v));S('line',{x1:xp(0),x2:xp(0),y1:m.t,y2:H-m.b,class:'linha-eixo'},S('g',{class:'eixo'},gP));
   const med={"Era Walt":527.8,"Renascença":378.1,"Modernas":314.5,"Remakes":447.6};
   PERIODOS.forEach((p,k)=>{const yy=m.t+k*pP+pP/2;S('text',{x:m.l-72,y:yy+4,'text-anchor':'end',class:'rotulo'},gP).textContent=p;
     S('line',{x1:xp(0),x2:xp(1900),y1:yy,y2:yy,stroke:'#ffffff1a'},gP);
@@ -1283,7 +1286,7 @@ CENAS.baile=function(i){
 (function(){
   const svg=$('#g-h5');const W=860,H=360,m={l:62,r:30,t:30,b:46};padroes(svg);
   const x=escala(1932,2023,m.l,W-m.r),y=escala(60,140,H-m.b,m.t);const g=S('g',{},svg);
-  eixoY(g,y,m.l-6,[60,80,100,120,140],v=>v+' min',W-m.l-m.r);eixoX(g,x,H-m.b,[1940,1960,1980,2000,2020],v=>v);
+  eixoY(g,y,m.l-6,[60,80,100,120,140],v=>v+' min',W-m.l-m.r,'duração ↑');eixoX(g,x,H-m.b,[1940,1960,1980,2000,2020],v=>v);
   const an=DENTRO.filter(f=>f.v==='a').sort((a,b)=>a.ano-b.ano),re=DENTRO.filter(f=>f.v==='r');
   const linha=S('path',{d:an.map((f,k)=>(k?'L':'M')+x(f.ano)+' '+y(f.dur)).join(' '),fill:'none',stroke:'#f8e7b0','stroke-width':2,filter:`url(#luz-${svg.id})`},g);
   const L=linha.getTotalLength();linha.style.strokeDasharray=L;linha.style.strokeDashoffset=L;linha.style.transition='stroke-dashoffset 2.2s ease';
@@ -1313,7 +1316,7 @@ CENAS.baile=function(i){
   const gm=marcos.map(([a,t,p,lin])=>{const gg=S('g',{opacity:0,style:'transition:opacity .6s'},g);S('line',{x1:x(a),x2:x(a),y1:m.t-56+lin*16,y2:H-m.b,stroke:'#f8e7b0','stroke-width':1,'stroke-dasharray':'3 4'},gg);
     S('text',{x:x(a)+(a>2015?-4:4),y:m.t-60+lin*16,'text-anchor':a>2015?'end':'start',class:'rotulo-ouro'},gg).textContent=a+' · '+t;gg._p=p;return gg});
   CENAS.telas=function(i){modo=i>=3?1:0;const max=modo?600000:80;const y=escala(0,max,H-m.b,m.t);gy.innerHTML='';
-    eixoY(gy,y,m.l-6,modo?[0,200000,400000,600000]:[0,25,50,75],v=>modo?fmt(v/1000)+' mil':v+'%',W-m.l-m.r);
+    eixoY(gy,y,m.l-6,modo?[0,200000,400000,600000]:[0,25,50,75],v=>modo?fmt(v/1000)+' mil':v+'%',W-m.l-m.r,modo?'votos ↑':'reprises ↑');
     $('#t-telas').textContent=modo?'Votos de quem avaliou no IMDb':'Quanto da bilheteria nos EUA veio das reprises';$('#n-telas').textContent=modo?'cada voto é alguém que assistiu e quis dar a sua nota':'% do total de cada filme';
     barras.forEach((b,k)=>{const v=modo?b.f.votos:b.f.repa/b.f.dom*100;anima(b.r,{y:y(v),height:H-m.b-y(v)},900,k*30);anima(b.t,{y:y(v)-6},900,k*30);
       b.t.textContent=modo?((b.f.c==='Rapunzel'||b.f.c==='Branca de Neve')&&b.f.v==='a'?fmt(v/1000)+' mil':''):(v>=1?fmt(v,0)+'%':'');b.r.classList.toggle('destaque',!!modo&&b.f.c==='Rapunzel')});
